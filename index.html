@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -16,11 +16,7 @@
     align-items: center;
     justify-content: center;
   }
-  .container {
-    width: 100%;
-    max-width: 480px;
-    padding: 20px;
-  }
+  .container { width: 100%; max-width: 480px; padding: 20px; }
   .panel {
     background: #0e1018;
     border: 1px solid #1a2035;
@@ -136,18 +132,16 @@
 <body>
 <div class="container">
 
-  <!-- Config panel shown if no key stored -->
   <div class="config-box" id="configBox">
     <div class="label">System Initialisation</div>
     <div style="font-family:'Share Tech Mono',monospace;font-size:11px;color:#7a90aa;letter-spacing:1px;line-height:1.7">
-      Enter your Anthropic API key to connect to Notion and load your live stats.
+      Enter your Anthropic API key to connect and load your live stats.
       The key is stored locally in your browser only.
     </div>
     <input type="password" id="apiKeyInput" placeholder="sk-ant-..." />
     <button class="btn" onclick="saveKeyAndLoad()">INITIALISE SYSTEM</button>
   </div>
 
-  <!-- Main panel -->
   <div class="panel" id="mainPanel" style="display:none">
     <div class="corner tl"></div>
     <div class="corner tr"></div>
@@ -156,7 +150,7 @@
 
     <div class="label">PLAYER PROFILE — LIVE DATA</div>
     <div class="player-name" id="playerName">LOADING...</div>
-    <div class="player-sub" id="playerTitle">SYNCING WITH NOTION...</div>
+    <div class="player-sub" id="playerTitle">SYNCING...</div>
 
     <div class="stat-row">
       <span class="stat-label">Current Weight</span>
@@ -183,7 +177,7 @@
       <span class="stat-value" id="statSync" style="color:#7a90aa;font-size:11px">--</span>
     </div>
 
-    <div class="status loading" id="statusBar">CONNECTING TO NOTION...</div>
+    <div class="status loading" id="statusBar">CONNECTING...</div>
     <button class="btn" id="refreshBtn" onclick="loadData()" style="margin-top:12px">REFRESH DATA</button>
     <button class="btn" onclick="clearKey()" style="border-color:#1a2035;color:#3d5068;margin-top:6px">RESET API KEY</button>
   </div>
@@ -191,8 +185,6 @@
 </div>
 
 <script>
-const NOTION_PAGE_ID = '3546dde5-d8c4-8183-8f88-e81f181ec031';
-
 function saveKeyAndLoad() {
   const key = document.getElementById('apiKeyInput').value.trim();
   if (!key.startsWith('sk-ant-')) {
@@ -239,29 +231,26 @@ async function loadData() {
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 500,
-        system: `You are a data extraction assistant. Read the Notion page content provided and extract specific facts.
-Return ONLY a valid JSON object with no markdown, no explanation, no backticks. Just raw JSON.
-Extract these fields:
-- name: full name of the person
-- title: their main role or description in 4-6 words
-- currentWeight: current weight in kg as a string e.g. "116.5kg"
-- targetWeight: short-term weight target as a string e.g. "100kg"
-- globalLevel: estimate a global RPG level between 1-20 based on overall life progress
-- activeProjects: number of active music/composing projects as a string e.g. "6 active"
-- jobStatus: current employment status in 3-4 words e.g. "Hunting — redundant May 2026"`,
+        system: `You are a data extraction assistant. Return ONLY a valid JSON object with no markdown, no backticks, no explanation. Just raw JSON with these fields:
+- name: full name
+- title: main role in 4-6 words
+- currentWeight: current weight as string e.g. "116.5kg"
+- targetWeight: short-term target as string e.g. "100kg"
+- globalLevel: RPG level 1-20 based on overall life progress
+- activeProjects: number of active music projects as string e.g. "6 active"
+- jobStatus: employment status in 4-5 words`,
         messages: [{
           role: 'user',
-          content: `Here is the Notion page content for Tarek's Global Claude Memory. Extract the required fields:
+          content: `Extract the required JSON fields from this profile data:
 
-PROFILE: Tarek Ghanameh, 32 years old, 180cm, weight dropped from 120kg to 116.5kg (as of 8 May 2026), target 100kg short term, 90kg long term.
-
-OCCUPATION: Games & Trailer Composer (TarekMG), Co-founder Ghost Note Accessories, works Saturday shifts at Majesty Lounge. Made redundant from Incode 6 May 2026, actively job hunting for SE or CSM role.
-
-MUSIC: Active pipeline includes SkyRen (demo due 15 May 2026), Caveshifter, Tamzin Twins, Yomifuda, Orbital, Soulcery, Bones and Coins. Mentor: Alex Pfeffer. Rate: $300-400 per finished minute.
-
-GOALS: 100kg weight, first paid game placement, Ghost Note 5-10 sales/week, land SE or CSM role, clear £2k debt.
+Name: Tarek Ghanameh, 32, 180cm.
+Weight: dropped from 120kg to 116.5kg (8 May 2026). Target: 100kg short term, 90kg long term.
+Job: Made redundant from Incode 6 May 2026. Actively hunting SE or CSM role.
+Music: Games and trailer composer TarekMG. Active pipeline: SkyRen (due 15 May), Caveshifter, Tamzin Twins, Yomifuda, Orbital, Soulcery, Bones and Coins. Mentor: Alex Pfeffer. Rate $300-400/min.
+Business: Co-founder Ghost Note Accessories with Rashid.
+Goals: 100kg, first paid game placement, Ghost Note 5-10 sales/week, clear £2k debt.
 
 Return only the JSON object.`
         }]
@@ -282,7 +271,7 @@ Return only the JSON object.`
     } catch {
       const match = rawText.match(/\{[\s\S]*\}/);
       if (match) parsed = JSON.parse(match[0]);
-      else throw new Error('Could not parse response as JSON');
+      else throw new Error('Could not parse response');
     }
 
     document.getElementById('playerName').textContent = parsed.name || 'TAREK GHANAMEH';
@@ -304,13 +293,9 @@ Return only the JSON object.`
   document.getElementById('refreshBtn').disabled = false;
 }
 
-// On load — check if key exists
 window.addEventListener('load', () => {
   const key = localStorage.getItem('tarek_rpg_api_key');
-  if (key) {
-    showMainPanel();
-    loadData();
-  }
+  if (key) { showMainPanel(); loadData(); }
 });
 </script>
 </body>

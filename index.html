@@ -1,302 +1,1148 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tarek Life RPG — Test</title>
+<title>TAREK // LIFE RPG SYSTEM</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@500;700&display=swap');
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: #09090f;
-    color: #dde4ee;
-    font-family: 'Rajdhani', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .container { width: 100%; max-width: 480px; padding: 20px; }
-  .panel {
-    background: #0e1018;
-    border: 1px solid #1a2035;
-    padding: 28px;
-    position: relative;
-  }
-  .corner { position: absolute; width: 10px; height: 10px; }
-  .tl { top: -1px; left: -1px; border-top: 2px solid #00d4ff; border-left: 2px solid #00d4ff; }
-  .tr { top: -1px; right: -1px; border-top: 2px solid #00d4ff; border-right: 2px solid #00d4ff; }
-  .bl { bottom: -1px; left: -1px; border-bottom: 2px solid #00d4ff; border-left: 2px solid #00d4ff; }
-  .br { bottom: -1px; right: -1px; border-bottom: 2px solid #00d4ff; border-right: 2px solid #00d4ff; }
-  .label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    color: #00d4ff;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    opacity: 0.7;
-  }
-  .player-name {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: #dde4ee;
-    margin-bottom: 6px;
-  }
-  .player-sub {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    color: #00d4ff;
-    letter-spacing: 2px;
-    margin-bottom: 24px;
-    opacity: 0.8;
-  }
-  .stat-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #1a2035;
-  }
-  .stat-row:last-of-type { border-bottom: none; }
-  .stat-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    color: #7a90aa;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-  .stat-value {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  .gold { color: #f0c040; }
-  .cyan { color: #00d4ff; }
-  .green { color: #30cc70; }
-  .red { color: #ff4060; }
-  .status {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    margin-top: 20px;
-    padding: 8px 12px;
-    border: 1px solid #1a2035;
-    color: #3d5068;
-    text-align: center;
-  }
-  .status.loading { color: #00d4ff; border-color: #00d4ff; animation: pulse 1.5s infinite; }
-  .status.success { color: #30cc70; border-color: #30cc70; }
-  .status.error { color: #ff4060; border-color: #ff4060; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  .config-box {
-    background: #13161f;
-    border: 1px solid #1a2035;
-    padding: 20px;
-    margin-bottom: 16px;
-  }
-  .config-box input {
-    width: 100%;
-    background: #09090f;
-    border: 1px solid #1a2035;
-    color: #dde4ee;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 12px;
-    padding: 10px 12px;
-    margin-top: 8px;
-    outline: none;
-    letter-spacing: 1px;
-  }
-  .config-box input:focus { border-color: #00d4ff; }
-  .config-box input::placeholder { color: #3d5068; }
-  .btn {
-    width: 100%;
-    background: transparent;
-    border: 1px solid #00d4ff;
-    color: #00d4ff;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    padding: 12px;
-    cursor: pointer;
-    text-transform: uppercase;
-    margin-top: 12px;
-    transition: background 0.2s;
-  }
-  .btn:hover { background: rgba(0,212,255,0.1); }
-  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
+:root{
+  --bg:#04060d;--bg2:#070c16;--panel:#080e1a;--panel2:#0c1424;
+  --b1:#0d1f3a;--b2:#1a3a6a;--b3:#2a5a9a;
+  --acc:#00aaff;--acc2:#0066cc;--acc3:rgba(0,170,255,0.08);--accg:rgba(0,170,255,0.25);
+  --gold:#f0b030;--gold2:#c07800;
+  --tx:#c8dff0;--tx2:#6a90b8;--tx3:#2a4a6a;
+  --health:#ff3355;--wealth:#f0b030;--love:#ff4499;--mindset:#00ddcc;
+  --font:'Orbitron',monospace;--mono:'Share Tech Mono',monospace;--body:'Rajdhani',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:var(--body);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px);pointer-events:none;z-index:1000}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,100,200,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,100,200,0.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:0 0 60px}
+
+/* HEADER */
+.hdr{background:#060c18;border-bottom:1px solid var(--b2);padding:14px 20px;display:flex;align-items:center;gap:16px;position:relative}
+.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--acc),transparent);opacity:0.5}
+.av{width:56px;height:56px;border-radius:50%;border:2px solid var(--acc);background:radial-gradient(circle,#0a2040,#040810);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 20px var(--accg);animation:avp 3s ease-in-out infinite}
+@keyframes avp{0%,100%{box-shadow:0 0 20px var(--accg)}50%{box-shadow:0 0 35px var(--accg)}}
+.av-t{font-family:var(--mono);font-size:15px;color:var(--acc);letter-spacing:2px}
+.pi{flex:1}
+.pn{font-family:var(--font);font-size:18px;font-weight:700;letter-spacing:3px;color:#fff;text-shadow:0 0 15px var(--accg)}
+.pt{font-family:var(--mono);font-size:9px;color:var(--acc);letter-spacing:2px;margin-top:2px;opacity:.8}
+.buffs{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:8px;padding:2px 8px;letter-spacing:1px}
+.chip.g{border:1px solid var(--mindset);color:var(--mindset);background:rgba(0,221,204,.06)}
+.chip.b{border:1px solid var(--acc);color:var(--acc);background:rgba(0,170,255,.06)}
+.chip.r{border:1px solid var(--health);color:var(--health);background:rgba(255,51,85,.06)}
+.chip.y{border:1px solid var(--gold);color:var(--gold);background:rgba(240,176,48,.06)}
+.glv{text-align:center;background:#08142a;border:1px solid var(--acc);padding:8px 18px;position:relative;box-shadow:0 0 15px rgba(0,170,255,.12)}
+.glv::before{content:'GLOBAL RANK';position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:7px;color:var(--acc);letter-spacing:2px;background:#060c18;padding:0 5px;white-space:nowrap}
+.glvn{font-family:var(--font);font-size:38px;font-weight:900;color:var(--gold);line-height:1;text-shadow:0 0 15px rgba(240,176,48,.4)}
+.glvl{font-family:var(--mono);font-size:8px;color:var(--tx3);letter-spacing:2px;margin-top:1px}
+
+/* MATH VERIFY */
+.math-bar{font-family:var(--mono);font-size:9px;padding:5px 20px;border-bottom:1px solid var(--b1);letter-spacing:2px;display:flex;align-items:center;gap:8px}
+.math-ok{color:var(--mindset)}
+.math-err{color:var(--health)}
+
+/* GLOBAL XP */
+.gxp{background:#050a14;border-bottom:1px solid var(--b1);padding:8px 20px;display:flex;align-items:center;gap:14px}
+.gxp-lbl{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:2px;white-space:nowrap;opacity:.7}
+.gxp-tr{flex:1;height:5px;background:var(--b1);position:relative}
+.gxp-f{height:100%;background:linear-gradient(90deg,var(--acc2),var(--acc));position:relative;transition:width 1s}
+.gxp-f::after{content:'';position:absolute;right:-1px;top:-3px;width:2px;height:11px;background:#fff;opacity:.9}
+.gxp-n{font-family:var(--mono);font-size:9px;color:var(--tx3);white-space:nowrap}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--b1);background:#050a14}
+.tab{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--tx3);padding:10px 16px;cursor:pointer;border-right:1px solid var(--b1);text-transform:uppercase;transition:color .15s,background .15s}
+.tab:hover{color:var(--tx2);background:var(--acc3)}
+.tab.on{color:var(--acc);border-bottom:2px solid var(--acc);background:var(--acc3)}
+.tc{display:none}.tc.on{display:block}
+
+/* OVERVIEW LAYOUT */
+.ov-layout{display:grid;grid-template-columns:1fr 260px 1fr;min-height:400px;border-bottom:1px solid var(--b1)}
+.pl-left{display:flex;flex-direction:column;border-right:1px solid var(--b1)}
+.pl-right{display:flex;flex-direction:column;border-left:1px solid var(--b1)}
+
+.pcard{flex:1;padding:14px 16px;cursor:pointer;position:relative;border-bottom:1px solid var(--b1);transition:background .2s;background:var(--panel);overflow:hidden;min-height:120px}
+.pcard:last-child{border-bottom:none}
+.pcard::before{content:'';position:absolute;top:0;bottom:0;width:3px;background:var(--pc);opacity:0;transition:opacity .2s}
+.pcard.lft::before{left:0}.pcard.rgt::before{right:0;left:auto}
+.pcard:hover{background:var(--panel2)}.pcard:hover::before{opacity:1}
+.pc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.pc-n{font-family:var(--font);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--pc)}
+.pc-rk{font-family:var(--mono);font-size:7px;color:var(--tx3);letter-spacing:1px;margin-top:2px}
+.pc-lv{font-family:var(--font);font-size:26px;font-weight:900;color:var(--pc);line-height:1;text-shadow:0 0 12px currentColor}
+.pc-lvl{font-family:var(--mono);font-size:7px;color:var(--tx3);text-align:right;letter-spacing:1px}
+.bar{height:3px;background:var(--b1);position:relative;margin:5px 0}
+.bf{height:100%;position:relative}
+.bf::after{content:'';position:absolute;right:-1px;top:-3px;width:2px;height:9px;background:rgba(255,255,255,.8)}
+.pc-xp{display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;color:var(--tx3)}
+.pc-cats{margin-top:8px;display:flex;flex-direction:column;gap:3px}
+.pc-cat-mini{font-family:var(--mono);font-size:7px;color:var(--tx3);display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+
+/* SCANNER */
+.scanner{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse at center,#060f1e,#040810);overflow:hidden;padding:10px}
+.scan-ring{position:absolute;border-radius:50%;border:1px solid rgba(0,170,255,.12);animation:srp 3s ease-in-out infinite}
+@keyframes srp{0%,100%{opacity:.12;transform:scale(1)}50%{opacity:.35;transform:scale(1.02)}}
+.scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,170,255,.35),transparent);animation:slm 4s linear infinite}
+@keyframes slm{0%{top:10%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:90%;opacity:0}}
+.scanner-svg{width:200px;height:360px;position:relative;z-index:2}
+
+/* DIVIDER */
+.div-row{border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);padding:7px 20px;background:#050a14;display:flex;align-items:center;gap:10px}
+.div-lbl{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:3px;opacity:.6;white-space:nowrap}
+.div-ln{flex:1;height:1px;background:linear-gradient(90deg,var(--b2),transparent)}
+.div-ln.r{background:linear-gradient(90deg,transparent,var(--b2))}
+
+/* PASSIVES */
+.pass-wrap{padding:14px 18px}
+.pass-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px}
+.passive{background:var(--panel);border:1px solid var(--b1);padding:10px 8px 8px;cursor:pointer;transition:border-color .2s,background .2s,transform .15s;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative}
+.passive:hover{border-color:var(--b3);background:var(--panel2);transform:translateY(-2px)}
+.p-icon{font-size:20px;filter:brightness(.8);transition:filter .2s}
+.passive:hover .p-icon{filter:brightness(1.3)}
+.p-name{font-family:var(--mono);font-size:8px;color:var(--tx2);letter-spacing:1px;text-transform:uppercase;text-align:center;line-height:1.3}
+.p-lv{font-family:var(--font);font-size:10px;font-weight:700;color:var(--tx2)}
+.p-boost{font-family:var(--mono);font-size:7px;color:var(--mindset);letter-spacing:1px}
+.p-dots{display:flex;gap:3px;justify-content:center;flex-wrap:wrap}
+.p-dot{width:7px;height:7px;border-radius:1px;opacity:.85}
+
+/* BREADCRUMB NAV */
+.breadcrumb{font-family:var(--mono);font-size:9px;color:var(--tx3);padding:8px 20px;background:#050a14;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.bc-item{cursor:pointer;color:var(--acc);opacity:.7;transition:opacity .15s}
+.bc-item:hover{opacity:1}
+.bc-sep{opacity:.3}
+.bc-current{color:var(--tx2);cursor:default}
+
+/* DRILL PANEL */
+.drill-hero{padding:14px 20px;background:var(--panel2);border-bottom:1px solid var(--b1)}
+.dh-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.dh-name{font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:2px}
+.dh-type{font-family:var(--mono);font-size:8px;color:var(--tx3);letter-spacing:2px;margin-top:3px;text-transform:uppercase}
+.dh-desc{font-family:var(--mono);font-size:9px;color:var(--tx2);margin-top:6px;line-height:1.6}
+.dh-lv{font-family:var(--font);font-size:30px;font-weight:900;text-align:right;line-height:1}
+.dh-rk{font-family:var(--mono);font-size:8px;color:var(--tx3);text-align:right;margin-top:2px}
+
+.drill-children{padding:14px 20px}
+.dc-label{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;opacity:.6}
+.child-card{background:var(--panel);border:1px solid var(--b1);padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:background .2s,border-color .2s;position:relative}
+.child-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cc)}
+.child-card:hover{background:var(--panel2);border-color:var(--b2)}
+.cc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.cc-name{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--tx)}
+.cc-lv{font-family:var(--font);font-size:14px;font-weight:700}
+.cc-xp{display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;color:var(--tx3);margin-top:5px}
+.cc-desc{font-family:var(--mono);font-size:9px;color:var(--tx3);margin-top:5px;line-height:1.5}
+.cc-boost{font-family:var(--mono);font-size:8px;color:var(--mindset);margin-top:4px;letter-spacing:1px}
+
+/* PASSIVE TAGS */
+.passive-tags-section{padding:12px 20px;border-top:1px solid var(--b1)}
+.pt-label{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;opacity:.6}
+.pt-grid{display:flex;gap:6px;flex-wrap:wrap}
+.pt-tag{font-family:var(--mono);font-size:8px;padding:4px 10px;border:1px solid var(--b2);color:var(--tx2);cursor:pointer;transition:border-color .15s,color .15s;display:flex;align-items:center;gap:5px}
+.pt-tag:hover{border-color:var(--b3);color:var(--tx)}
+.pt-tag .ptdot{width:6px;height:6px;border-radius:50%}
+
+/* PASSIVE DETAIL */
+.pd-wrap{padding:20px}
+.pd-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--b1)}
+.pd-icon{width:50px;height:50px;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--panel2);border:1px solid var(--b1)}
+.pd-name{font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:2px;color:var(--acc)}
+.pd-meta{font-family:var(--mono);font-size:9px;color:var(--tx3);margin-top:3px;letter-spacing:1px}
+.pd-desc{font-family:var(--body);font-size:14px;color:var(--tx2);line-height:1.7;margin-bottom:14px}
+.pd-section-lbl{font-family:var(--mono);font-size:8px;color:var(--tx3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.pd-buff-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.pd-bt{font-family:var(--mono);font-size:9px;padding:4px 12px;border:1px solid;letter-spacing:1px}
+.pd-sources{font-family:var(--mono);font-size:9px;color:var(--tx3);line-height:1.8;letter-spacing:1px}
+/* LEAF DETAIL */
+.leaf-hero{padding:14px 20px;background:var(--panel2);border-bottom:1px solid var(--b1)}
+.lh-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.lh-name{font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:2px}
+.lh-type{font-family:var(--mono);font-size:8px;color:var(--tx3);letter-spacing:2px;margin-top:3px;text-transform:uppercase}
+.lh-desc{font-family:var(--mono);font-size:9px;color:var(--tx2);margin-top:6px;line-height:1.6;max-width:500px}
+.lh-lv{font-family:var(--font);font-size:30px;font-weight:900;text-align:right;line-height:1}
+.lh-xp{font-family:var(--mono);font-size:8px;color:var(--tx3);text-align:right;margin-top:2px}
+.leaf-log{padding:14px 20px}
+.ll-label{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;opacity:.6}
+.ll-entry{font-family:var(--mono);font-size:9px;border-left:2px solid var(--b2);padding:5px 10px;margin-bottom:6px;color:var(--tx3);line-height:1.6;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ll-entry.fresh{border-color:var(--acc);color:var(--tx2)}
+.ll-entry.milestone{border-color:var(--gold)}
+.ll-xp{color:var(--gold);white-space:nowrap;font-size:10px}
+.ll-date{color:var(--tx3);white-space:nowrap;font-size:8px;opacity:.7}
+.ll-empty{font-family:var(--mono);font-size:9px;color:var(--tx3);letter-spacing:1px;padding:10px 0;opacity:.5}
+
+
+/* MILESTONES */
+.ms-wrap{padding:14px 20px}
+.ms-slbl{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;margin-top:12px;opacity:.6}
+.ms-slbl:first-child{margin-top:0}
+.ms{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;background:var(--panel);border:1px solid var(--b1);margin-bottom:5px}
+.ms-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.ms-txt{font-family:var(--body);font-size:12px;color:var(--tx2);flex:1;line-height:1.4}
+.ms-xp{font-family:var(--mono);font-size:10px;color:var(--gold);white-space:nowrap}
+.ms.pend{opacity:.4}
+
+/* LOG */
+.log-wrap{padding:14px 20px}
+.le{font-family:var(--mono);font-size:9px;border-left:2px solid var(--b2);padding:4px 10px;margin-bottom:7px;color:var(--tx3);line-height:1.6}
+.le.fresh{border-color:var(--acc);color:var(--tx2)}
+.le .lxp{color:var(--gold)}
+
+.hint{font-family:var(--mono);font-size:9px;color:var(--tx3);padding:10px 20px 20px;letter-spacing:1px;line-height:1.8;border-top:1px solid var(--b1)}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.fi{animation:fi .25s ease forwards}
+
+/* THRESHOLD INFO */
+.thresh-info{font-family:var(--mono);font-size:8px;color:var(--tx3);padding:6px 20px;background:#050a14;border-bottom:1px solid var(--b1);letter-spacing:1px;opacity:.7}
 </style>
 </head>
 <body>
-<div class="container">
+<div class="wrap">
 
-  <div class="config-box" id="configBox">
-    <div class="label">System Initialisation</div>
-    <div style="font-family:'Share Tech Mono',monospace;font-size:11px;color:#7a90aa;letter-spacing:1px;line-height:1.7">
-      Enter your Anthropic API key to connect and load your live stats.
-      The key is stored locally in your browser only.
+<div class="hdr">
+  <div class="av"><span class="av-t">TG</span></div>
+  <div class="pi">
+    <div class="pn">TAREK GHANAMEH</div>
+    <div class="pt">THE PARALLEL PROCESSOR &nbsp;|&nbsp; CLASS: CREATOR-WARRIOR &nbsp;|&nbsp; GAME COMPOSER</div>
+    <div class="buffs">
+      <span class="chip g">GYM STREAK</span>
+      <span class="chip g">KETO ACTIVE</span>
+      <span class="chip b">6 PROJECTS</span>
+      <span class="chip y">JOB HUNT</span>
+      <span class="chip b">3 NEW PASSIVES</span>
+      <span class="chip r">DEBT LOAD</span>
+      <span class="chip r">SLEEP -2</span>
     </div>
-    <input type="password" id="apiKeyInput" placeholder="sk-ant-..." />
-    <button class="btn" onclick="saveKeyAndLoad()">INITIALISE SYSTEM</button>
   </div>
-
-  <div class="panel" id="mainPanel" style="display:none">
-    <div class="corner tl"></div>
-    <div class="corner tr"></div>
-    <div class="corner bl"></div>
-    <div class="corner br"></div>
-
-    <div class="label">PLAYER PROFILE — LIVE DATA</div>
-    <div class="player-name" id="playerName">LOADING...</div>
-    <div class="player-sub" id="playerTitle">SYNCING...</div>
-
-    <div class="stat-row">
-      <span class="stat-label">Current Weight</span>
-      <span class="stat-value green" id="statWeight">--</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-label">Target Weight</span>
-      <span class="stat-value cyan" id="statTarget">--</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-label">Global Level</span>
-      <span class="stat-value gold" id="statLevel">--</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-label">Active Projects</span>
-      <span class="stat-value cyan" id="statProjects">--</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-label">Job Status</span>
-      <span class="stat-value red" id="statJob">--</span>
-    </div>
-    <div class="stat-row">
-      <span class="stat-label">Last Sync</span>
-      <span class="stat-value" id="statSync" style="color:#7a90aa;font-size:11px">--</span>
-    </div>
-
-    <div class="status loading" id="statusBar">CONNECTING...</div>
-    <button class="btn" id="refreshBtn" onclick="loadData()" style="margin-top:12px">REFRESH DATA</button>
-    <button class="btn" onclick="clearKey()" style="border-color:#1a2035;color:#3d5068;margin-top:6px">RESET API KEY</button>
+  <div class="glv">
+    <div class="glvn" id="glvn">—</div>
+    <div class="glvl">LV</div>
   </div>
-
 </div>
 
+<div class="math-bar" id="mathBar">
+  <span>⟩ VERIFYING MATHS...</span>
+</div>
+
+<div class="gxp">
+  <span class="gxp-lbl">GLOBAL XP</span>
+  <div class="gxp-tr"><div class="gxp-f" id="gxpF" style="width:0%"></div></div>
+  <span class="gxp-n" id="gxpN">—</span>
+</div>
+
+<div class="tabs">
+  <div class="tab on" onclick="setTab('overview')">OVERVIEW</div>
+  <div class="tab" onclick="setTab('drill')">DEEP STATS</div>
+  <div class="tab" onclick="setTab('milestones')">MILESTONES</div>
+  <div class="tab" onclick="setTab('log')">XP LOG</div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="tc on" id="t-overview">
+  <div class="ov-layout">
+    <div class="pl-left" id="leftPillars"></div>
+    <div class="scanner">
+      <div class="scan-ring" style="width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:0s"></div>
+      <div class="scan-ring" style="width:220px;height:220px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:.6s"></div>
+      <div class="scan-ring" style="width:140px;height:140px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:1.2s"></div>
+      <div class="scan-line"></div>
+      <svg class="scanner-svg" viewBox="0 0 200 360" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="gw"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="gw2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#00aaff" stop-opacity=".55"/>
+            <stop offset="50%" stop-color="#0055aa" stop-opacity=".28"/>
+            <stop offset="100%" stop-color="#002244" stop-opacity=".38"/>
+          </linearGradient>
+          <linearGradient id="cg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#00aaff" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#00aaff" stop-opacity=".7"/>
+            <stop offset="100%" stop-color="#00aaff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="100" cy="180" rx="88" ry="158" fill="none" stroke="#00aaff" stroke-width=".4" opacity=".12"/>
+        <line x1="15" y1="95" x2="185" y2="95" stroke="url(#cg)" stroke-width=".4" opacity=".35"/>
+        <line x1="15" y1="145" x2="185" y2="145" stroke="url(#cg)" stroke-width=".4" opacity=".28"/>
+        <line x1="15" y1="195" x2="185" y2="195" stroke="url(#cg)" stroke-width=".4" opacity=".35"/>
+        <line x1="15" y1="245" x2="185" y2="245" stroke="url(#cg)" stroke-width=".4" opacity=".28"/>
+        <line x1="15" y1="290" x2="185" y2="290" stroke="url(#cg)" stroke-width=".4" opacity=".2"/>
+        <!-- Head -->
+        <ellipse cx="100" cy="38" rx="20" ry="24" fill="url(#bg)" stroke="#00aaff" stroke-width="1.1" filter="url(#gw)"/>
+        <!-- Neck -->
+        <rect x="94" y="60" width="12" height="12" rx="2" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
+        <!-- Torso -->
+        <path d="M65 72 L135 72 L144 150 L56 150 Z" fill="url(#bg)" stroke="#00aaff" stroke-width="1.1" filter="url(#gw)"/>
+        <!-- L arm -->
+        <path d="M65 72 L44 74 L34 130 L52 134 L56 92" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
+        <path d="M34 130 L28 188 L48 188 L52 134" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
+        <ellipse cx="38" cy="196" rx="9" ry="12" fill="url(#bg)" stroke="#00aaff" stroke-width=".7" filter="url(#gw)"/>
+        <!-- R arm -->
+        <path d="M135 72 L156 74 L166 130 L148 134 L144 92" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
+        <path d="M166 130 L172 188 L152 188 L148 134" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
+        <ellipse cx="162" cy="196" rx="9" ry="12" fill="url(#bg)" stroke="#00aaff" stroke-width=".7" filter="url(#gw)"/>
+        <!-- Pelvis -->
+        <path d="M56 150 L144 150 L148 188 L52 188 Z" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
+        <!-- Thighs -->
+        <path d="M52 188 L70 188 L73 262 L50 262" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
+        <path d="M148 188 L130 188 L127 262 L150 262" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
+        <!-- Shins -->
+        <path d="M50 262 L73 262 L71 330 L52 330" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
+        <path d="M150 262 L127 262 L129 330 L148 330" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
+        <!-- Feet -->
+        <path d="M48 330 L73 330 L76 348 L45 348 Z" fill="url(#bg)" stroke="#00aaff" stroke-width=".7" filter="url(#gw)"/>
+        <path d="M127 330 L152 330 L155 348 L124 348 Z" fill="url(#bg)" stroke="#00aaff" stroke-width=".7" filter="url(#gw)"/>
+        <!-- Circuit lines -->
+        <line x1="88" y1="80" x2="88" y2="146" stroke="#00ddcc" stroke-width=".5" opacity=".4"/>
+        <line x1="112" y1="80" x2="112" y2="146" stroke="#00ddcc" stroke-width=".5" opacity=".4"/>
+        <line x1="72" y1="108" x2="128" y2="108" stroke="#00ddcc" stroke-width=".5" opacity=".35"/>
+        <line x1="72" y1="126" x2="128" y2="126" stroke="#00ddcc" stroke-width=".5" opacity=".35"/>
+        <!-- Spine -->
+        <line x1="100" y1="72" x2="100" y2="188" stroke="#00aaff" stroke-width=".5" stroke-dasharray="3 3" opacity=".35"/>
+        <!-- Joint nodes -->
+        <circle cx="100" cy="72" r="2.5" fill="#00aaff" filter="url(#gw2)" opacity=".9"/>
+        <circle cx="65" cy="72" r="2" fill="#00aaff" filter="url(#gw2)" opacity=".8"/>
+        <circle cx="135" cy="72" r="2" fill="#00aaff" filter="url(#gw2)" opacity=".8"/>
+        <circle cx="34" cy="130" r="1.8" fill="#00ddcc" filter="url(#gw2)" opacity=".8"/>
+        <circle cx="166" cy="130" r="1.8" fill="#00ddcc" filter="url(#gw2)" opacity=".8"/>
+        <circle cx="100" cy="150" r="2.5" fill="#00aaff" filter="url(#gw2)" opacity=".9"/>
+        <circle cx="62" cy="188" r="1.8" fill="#00aaff" filter="url(#gw2)" opacity=".7"/>
+        <circle cx="138" cy="188" r="1.8" fill="#00aaff" filter="url(#gw2)" opacity=".7"/>
+        <circle cx="62" cy="262" r="1.8" fill="#00ddcc" filter="url(#gw2)" opacity=".7"/>
+        <circle cx="138" cy="262" r="1.8" fill="#00ddcc" filter="url(#gw2)" opacity=".7"/>
+        <!-- Heart -->
+        <circle cx="100" cy="108" r="5" fill="none" stroke="#ff3355" stroke-width=".9" opacity=".7" filter="url(#gw)"/>
+        <circle cx="100" cy="108" r="1.8" fill="#ff3355" opacity=".8" filter="url(#gw2)"/>
+        <!-- Brain -->
+        <circle cx="100" cy="32" r="3.5" fill="none" stroke="#00ddcc" stroke-width=".7" opacity=".6"/>
+        <!-- Labels -->
+        <text x="8" y="98" font-family="'Share Tech Mono'" font-size="5.5" fill="#00aaff" opacity=".5">MIND</text>
+        <text x="8" y="148" font-family="'Share Tech Mono'" font-size="5.5" fill="#00aaff" opacity=".5">CORE</text>
+        <text x="8" y="198" font-family="'Share Tech Mono'" font-size="5.5" fill="#00aaff" opacity=".5">HIP</text>
+        <text x="158" y="98" font-family="'Share Tech Mono'" font-size="5.5" fill="#00aaff" opacity=".5">LV 8</text>
+        <text x="156" y="148" font-family="'Share Tech Mono'" font-size="5.5" fill="#ff3355" opacity=".6">VITAL</text>
+        <text x="153" y="198" font-family="'Share Tech Mono'" font-size="5.5" fill="#00aaff" opacity=".5">116kg</text>
+        <!-- Scan anim -->
+        <rect x="12" y="0" width="176" height="2" fill="url(#cg)" opacity=".45">
+          <animate attributeName="y" from="18" to="340" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;.45;.45;0" dur="4s" repeatCount="indefinite"/>
+        </rect>
+      </svg>
+    </div>
+    <div class="pl-right" id="rightPillars"></div>
+  </div>
+
+  <div class="div-row">
+    <div class="div-ln"></div>
+    <span class="div-lbl">PASSIVE SKILLS // TRANSFERABLE CHARACTER TRAITS</span>
+    <div class="div-ln r"></div>
+  </div>
+  <div class="pass-wrap"><div class="pass-grid" id="passGrid"></div></div>
+  <div class="hint">⟩ CLICK ANY PILLAR FOR DEEP STATS &nbsp;|&nbsp; CLICK ANY PASSIVE FOR DETAIL &nbsp;|&nbsp; XP FLOWS UPWARD AUTOMATICALLY FROM LEAF STATS &nbsp;|&nbsp; MATHS VERIFIED ON LOAD</div>
+</div>
+
+<!-- DEEP STATS / DRILL -->
+<div class="tc" id="t-drill">
+  <div class="breadcrumb" id="breadcrumb"></div>
+  <div id="drillContent"></div>
+</div>
+
+<!-- PASSIVE DETAIL -->
+<div class="tc" id="t-passive">
+  <div class="breadcrumb" id="pbreadcrumb"></div>
+  <div class="pd-wrap" id="pdContent"></div>
+</div>
+
+
+<!-- LEAF DETAIL -->
+<div class="tc" id="t-leaf">
+  <div class="breadcrumb" id="leafBreadcrumb"></div>
+  <div id="leafContent"></div>
+</div>
+
+<!-- MILESTONES -->
+<div class="tc" id="t-milestones">
+  <div class="ms-wrap" id="msWrap"></div>
+</div>
+
+<!-- LOG -->
+<div class="tc" id="t-log">
+  <div class="log-wrap" id="logWrap"></div>
+</div>
+
+</div>
 <script>
-function saveKeyAndLoad() {
-  const key = document.getElementById('apiKeyInput').value.trim();
-  if (!key.startsWith('sk-ant-')) {
-    alert('That does not look like a valid Anthropic API key. It should start with sk-ant-');
+// ============================================================
+// DATA — Full hierarchy. XP stored only at leaf level.
+// Parents calculated from children automatically.
+// ============================================================
+const THRESHOLDS = { leaf:200, sub:1000, cat:5000, pillar:15000, global:20000 };
+const PASSIVE_THRESHOLD = 500;
+const BOOST_PER_LEVEL = 0.005; // 0.5% per passive level
+
+// Passive skills definition
+const PASSIVES = [
+  { id:'prospecting', name:'Prospecting', icon:'🎯', xp:5400,
+    buffs:['Wealth.Music Career.Game Score Strategy','Wealth.Day Job Career.Job Hunt','Wealth.Day Job Career.Enterprise BDR','Wealth.Day Job Career.Sales Craft'],
+    pillars:['wealth'],
+    desc:'Built professionally at insightsoftware as a core BDR competency. Transferred directly to TarekMG game composer outreach without retraining. The Notion Game Prospecting CRM system exists because of this skill.',
+    sources:'Earns XP from: cold outreach sessions, pipeline reviews, new dev contacts made, follow-up sequences executed.' },
+  { id:'pipeline', name:'Pipeline Mgmt', icon:'📊', xp:4800,
+    buffs:['Wealth.Music Career.Active Pipeline','Wealth.Day Job Career.Professional Network'],
+    pillars:['wealth'],
+    desc:'Enterprise CRM methodology from SAP BDR role applied to game composer project tracking. 6 active projects managed simultaneously using this skill.',
+    sources:'Earns XP from: pipeline updates, project status reviews, tracking new opportunities.' },
+  { id:'discipline', name:'Discipline', icon:'⚡', xp:3600,
+    buffs:['Health.Fitness.Gym Consistency','Health.Nutrition.Supplements & Stack','Wealth.Finance.Budget System','Health.Recovery.Sleep Quality'],
+    pillars:['health','mindset'],
+    desc:'Shows up identically across gym sessions, supplement routines, IncomeSplit sessions, and music commitments. Characterises who Tarek is across all domains simultaneously.',
+    sources:'Earns XP from: completing a commitment when depleted, showing up to a session when motivation is low, maintaining a routine streak.' },
+  { id:'systems', name:'Systems Thinking', icon:'🔧', xp:5300,
+    buffs:['Health.Fitness.Gym Consistency','Wealth.Finance.Budget System','Wealth.Music Career.Game Score Strategy','Mindset.Operating System.Parallel Processing'],
+    pillars:['health','wealth','love','mindset'],
+    desc:'Designs architecture before executing. IncomeSplit, Notion workspace, workout structure, RPG system, game prospecting CRM — all built from this trait.',
+    sources:'Earns XP from: building a new system or process that did not exist before, redesigning a workflow, creating structure out of chaos.' },
+  { id:'sales', name:'Sales Craft', icon:'💼', xp:5200,
+    buffs:['Wealth.Day Job Career.Sales Craft','Wealth.Day Job Career.Enterprise BDR','Wealth.Business.Ghost Note Sales'],
+    pillars:['wealth'],
+    desc:'Built across retail (Maplin, Harrods, Harvey Nichols, Selfridges), telecoms (Lebara, Three), and enterprise (insightsoftware SAP BDR/ADR). The transferable commercial core spanning 10+ years.',
+    sources:'Earns XP from: closing a deal, landing a meeting, receiving positive commercial feedback, being recognised for commercial instinct.' },
+  { id:'product', name:'Product Mgmt', icon:'🏗️', xp:3800,
+    buffs:['Wealth.Business.Ghost Note Product','Wealth.Business.Noisesharks Legacy','Wealth.Music Career.Active Pipeline'],
+    pillars:['wealth'],
+    desc:'Noisesharks CEO 2017-2022. Co-founded and ran a music tech startup. Product thinking, roadmap management, co-founder dynamics — all now feeding Ghost Note.',
+    sources:'Earns XP from: product decisions made, features shipped, roadmap work done, lessons from Noisesharks consciously applied.' },
+  { id:'aesthetic', name:'Aesthetic Intel', icon:'🎨', xp:6400,
+    buffs:['Wealth.Music Career.Composition','Wealth.Business.Ghost Note Product','Wealth.Music Career.Prog Metal Production'],
+    pillars:['wealth','love'],
+    desc:'Exceptionally high taste across music, visuals, and product. Deliberately unique sound. High bar that drives TarekMG uniqueness and Ghost Note product quality equally.',
+    sources:'Earns XP from: making a deliberate aesthetic choice that raises quality, being recognised for taste, producing something undeniably distinctive.' },
+  { id:'resilience', name:'Resilience', icon:'🛡️', xp:3300,
+    buffs:['Mindset.Resilience.Post-Adversity Recovery','Health.Mental Health.Panic Recovery','Mindset.Resilience.Identity Stability'],
+    pillars:['health','mindset'],
+    desc:'Panic attack (Apr 2026) survived and fully analysed. Redundancy (May 2026) handled with calm and calendar restructured same day. Shows constructive action after setbacks.',
+    sources:'Earns XP from: recovering from a setback with constructive action, choosing analysis over collapse, maintaining identity under pressure.' },
+  { id:'loyalty', name:'Loyalty & Honour', icon:'⚔️', xp:5800,
+    buffs:['Love.Nuclear Family.Partnership','Love.Extended Family.Son Role','Love.Relationships.Business Partnerships'],
+    pillars:['love','mindset'],
+    desc:'Commitment, integrity, anti-betrayal — written unprompted in Tarek\'s Cave with no audience. Also includes non-performative humility: "don\'t show off to belittle", "I\'m not a fake wanna-be". The refusal to use achievement as a weapon against others. Standards directed inward not deployed as status display.',
+    sources:'Earns XP from: honouring a commitment under pressure, showing up for family during a hard week, maintaining integrity when it costs something, choosing not to use achievement to diminish others.' },
+  { id:'creativity', name:'Creativity', icon:'🎵', xp:6500,
+    buffs:['Wealth.Music Career.Composition','Wealth.Music Career.Glitch & Modular','Wealth.Music Career.Synth & Sound Design'],
+    pillars:['wealth','mindset'],
+    desc:'The B instinct — curiosity-led, unconventional, cross-domain. Best work comes from following what is interesting not what is expected. Joey Sturgis reactions confirm this is real.',
+    sources:'Earns XP from: producing something genuinely original, an idea that surprises even you, following curiosity into unexpected territory.' },
+  { id:'networking', name:'Networking', icon:'🌐', xp:3100,
+    buffs:['Wealth.Day Job Career.Professional Network','Wealth.Music Career.Active Pipeline'],
+    pillars:['wealth'],
+    desc:'Alex Pfeffer mentor relationship. Game dev community contacts from prospecting. Noisesharks and insightsoftware industry connections still active.',
+    sources:'Earns XP from: meaningful new connection made, existing relationship deepened, being introduced to someone relevant.' },
+  { id:'recovery_skill', name:'Recovery', icon:'🔄', xp:2800,
+    buffs:['Health.Recovery.Sleep Quality','Health.Recovery.Rest Days','Health.Mental Health.Emotional Regulation'],
+    pillars:['health','mindset'],
+    desc:'Recognises depletion vs laziness. Magnesium, sleep hygiene, rest days built into system. Post-burnout pattern awareness is now a functional skill not just knowledge.',
+    sources:'Earns XP from: choosing rest strategically, protecting sleep, recognising and acting on depletion before it becomes collapse.' },
+  { id:'contextual_courage', name:'Contextual Courage', icon:'🚀', xp:3800,
+    buffs:['Wealth.Day Job Career.Job Hunt','Wealth.Music Career.Active Pipeline','Wealth.Business.Noisesharks Legacy','Mindset.Operating System.Burst Execution'],
+    pillars:['wealth','mindset'],
+    desc:'Consistently enters uncertain, high-stakes contexts without waiting to feel ready. Cold-emailed studios with AAA pedigree (ex-BioShock, ex-Halo devs) as an emerging composer. Built a GitHub deployment pipeline from scratch in the same afternoon it was suggested. Co-founded Noisesharks without a roadmap. Took the Incode BDR role. Deliberate entry followed by figuring it out from inside — not recklessness.',
+    sources:'Earns XP from: entering a high-stakes context before feeling fully ready, attempting something with no prior experience, pitching to targets most would consider out of reach.' },
+  { id:'audience_instinct', name:'Audience Instinct', icon:'📡', xp:4200,
+    buffs:['Wealth.Music Career.Game Score Strategy','Wealth.Music Career.Active Pipeline','Wealth.Business.Ghost Note Marketing'],
+    pillars:['wealth','love'],
+    desc:'Shapes how he appears to a future audience before he has earned them. Discord Nitro profile designed to look like a genuine community member not a cold pitch. Prospecting email voice is distinct and human. Ko-fi, streaming presence, music platforms — all engineered as audience psychology. Shows up identically across music, sales, and business contexts.',
+    sources:'Earns XP from: deliberately crafting how you appear to a new audience, improving an outreach voice, engineering a first impression, building a platform presence.' },
+  { id:'pattern_recognition', name:'Cross-Domain Pattern Recognition', icon:'🔮', xp:5800,
+    buffs:['Wealth.Music Career.Composition','Wealth.Day Job Career.Sales Craft','Mindset.Operating System.Parallel Processing','Mindset.Self-Mastery.Self-Awareness'],
+    pillars:['health','wealth','love','mindset'],
+    desc:'Sees the same underlying pattern wearing different clothes across unrelated domains. Mapped enterprise sales CRM to game composer prospecting unprompted. Drew the Path of Exile passive tree analogy independently. Identified the double-counting flaw in the maths model before it was explained. This is the cognitive root of genre-blending in music — he hears genres as problem-solving toolkits not identities. The gift and the bottleneck share the same root: this brain generates more possible connections than can be acted on simultaneously.',
+    sources:'Earns XP from: noticing a structural pattern from one domain applying to another, making a cross-domain connection that surprises even you, translating a methodology across fields without prompting.' },
+];
+
+// PILLAR DATA — XP only at leaf level
+const PILLARS = [
+  { id:'health', name:'HEALTH', color:'var(--health)', hex:'#ff3355', rank:'AWAKENING',
+    categories:[
+      { id:'fitness', name:'Fitness', desc:'Physical performance, body composition, training consistency',
+        subcategories:[
+          { id:'weight', name:'Weight Progress', desc:'120kg → 116.5kg. Target 100kg. Down 3.5kg in 3 weeks on keto.', xp:680 },
+          { id:'gym', name:'Gym Consistency', desc:'Push/Pull/Legs split. Home + Leisure Centre. 5 sessions/week.', xp:920 },
+          { id:'cardio', name:'Cardio & Endurance', desc:'Rowing machine warm-up. Treadmill. Zone 2-3 building.', xp:340 },
+          { id:'strength', name:'Strength', desc:'Progressive overload tracking. 3 sets 12-10-8. Compounds first.', xp:480 },
+        ]},
+      { id:'nutrition', name:'Nutrition', desc:'Diet quality, supplement adherence, fuelling strategy',
+        subcategories:[
+          { id:'keto', name:'Keto & Diet', desc:'30-40g carbs. Structured meal timing. Protein prioritised.', xp:560 },
+          { id:'supps', name:'Supplements & Stack', desc:'Vit D, Omega 3, Vit C & Zinc, Magnesium, Whey, Creatine, Electrolytes.', xp:480 },
+          { id:'hydration', name:'Hydration', desc:'1L electrolyte water daily at desk. Pre and post-workout.', xp:280 },
+        ]},
+      { id:'recovery', name:'Recovery', desc:'Sleep quality, rest days, stress management',
+        subcategories:[
+          { id:'sleep', name:'Sleep Quality', desc:'Avg 6.8h. Two short nights flagged (5.5h, 5.7h). Deep sleep strong on good nights.', xp:420 },
+          { id:'rest', name:'Rest Days', desc:'Wed and Sun full rest built into split. Protected.', xp:340 },
+          { id:'stress', name:'Stress Management', desc:'Load awareness. Breathing tools. Depletion vs laziness distinction.', xp:360 },
+        ]},
+      { id:'mental_health', name:'Mental Health', desc:'Anxiety management, emotional regulation, resilience',
+        subcategories:[
+          { id:'anxiety', name:'Anxiety Management', desc:'Post-panic tools internalised. 4-6 breathing. Grounding. Magical thinking labelled.', xp:480 },
+          { id:'panic_rec', name:'Panic Recovery', desc:'17 Apr 2026 episode fully analysed. Pattern understood. Not repeated since.', xp:520 },
+          { id:'emo_reg', name:'Emotional Regulation', desc:'Documents to process not just to reference. Working through things constructively.', xp:360 },
+        ]},
+    ]},
+
+  { id:'wealth', name:'WEALTH', color:'var(--wealth)', hex:'#f0b030', rank:'MULTI-THREAD',
+    categories:[
+      { id:'music', name:'Music Career — TarekMG', desc:'Games and trailer composer. The main career goal.',
+        subcategories:[
+          { id:'comp', name:'Composition', desc:'Elite instinct. Own sound. Orchestral + metal + synth. Joey Sturgis-level reactions.', xp:2800 },
+          { id:'metal', name:'Prog Metal Production', desc:'Strongest domain. The base identity. Deliberate and unconventional.', xp:2600 },
+          { id:'synth', name:'Synth & Sound Design', desc:'Devastator/Mick Gordon path active. McCann style: beginner. Glitch: newest obsession.', xp:1800 },
+          { id:'orch', name:'Orchestral Writing', desc:'Beginner standalone. Used blended with metal. Sawano is the target. Deferred til after Devastator.', xp:800 },
+          { id:'glitch', name:'Glitch & Modular', desc:'Newest obsession. Gatchakuta/JJK crunchy glitch percs. Least developed, most exciting.', xp:600 },
+          { id:'guitar', name:'Guitar', desc:'Serves composition. Solid enough for the work. Not a primary focus.', xp:1200 },
+          { id:'strategy', name:'Game Score Strategy', desc:'Prospecting funnel built. Rate $300-400/min. Alex Pfeffer mentor. 6 active projects.', xp:1600 },
+          { id:'pipeline_stat', name:'Active Pipeline', desc:'SkyRen (15 May), Caveshifter, Tamzin Twins, Yomifuda, Soulcery, Bones and Coins.', xp:1200 },
+        ]},
+      { id:'dayjob', name:'Day Job Career', desc:'Full career history. Current target: SE or CSM role.',
+        subcategories:[
+          { id:'sales_craft', name:'Sales Craft', desc:'Maplin, Three, Lebara, Harrods, Harvey Nichols, Selfridges — retail + telecoms + enterprise.', xp:2200 },
+          { id:'enterprise', name:'Enterprise BDR', desc:'insightsoftware SAP BDR/ADR 2022-2026. Complex enterprise cycles. Real pipeline management.', xp:1800 },
+          { id:'job_hunt', name:'Job Hunt', desc:'Actively hunting SE or CSM. Made redundant 6 May 2026. Not performance-related.', xp:400 },
+          { id:'se_csm', name:'SE/CSM Trajectory', desc:'Pre-sales or CS direction. Commission + customer work without pure closing pressure.', xp:300 },
+          { id:'pro_network', name:'Professional Network', desc:'Noisesharks, insightsoftware, Incode, music industry, game dev community contacts.', xp:800 },
+        ]},
+      { id:'business', name:'Business — Ghost Note', desc:'Guitar and music accessories. Co-founded with Rashid.',
+        subcategories:[
+          { id:'gn_sales', name:'Ghost Note Sales', desc:'Not consistently hitting 5-10/week yet. Core growth gap.', xp:480 },
+          { id:'gn_product', name:'Ghost Note Product', desc:'Real product. Real differentiation. Built and operational.', xp:920 },
+          { id:'gn_mktg', name:'Ghost Note Marketing', desc:'Needs consistent push. Rashid partnership active.', xp:360 },
+          { id:'noisesharks', name:'Noisesharks Legacy', desc:'CEO 2017-2022. Co-founding experience. Product management. All feeding Ghost Note.', xp:1200 },
+        ]},
+      { id:'finance', name:'Finance', desc:'Money management, debt clearance, income building.',
+        subcategories:[
+          { id:'budget', name:'Budget System', desc:'IncomeSplit Google Sheet. Monthly valuation session. Confirms at £0.00.', xp:1600 },
+          { id:'debt', name:'Debt Clearance', desc:'£2k to mother. Identity-level not transactional. Plan in motion.', xp:280 },
+          { id:'income', name:'Income Growth', desc:'Multiple streams building: job salary, music ($300-400/min), Ghost Note, Majesty shifts.', xp:600 },
+          { id:'savings', name:'Savings Rate', desc:'No margin right now. Will improve when job landed and music streams consistent.', xp:180 },
+        ]},
+    ]},
+
+  { id:'love', name:'LOVE', color:'var(--love)', hex:'#ff4499', rank:'DEVOTED',
+    categories:[
+      { id:'nuclear', name:'Nuclear Family', desc:'Wife, daughter Alaena (7), and the home unit.',
+        subcategories:[
+          { id:'partner', name:'Partnership', desc:'Wife is the core stabilising force. Deep bond. The anchor that holds when everything else is loud.', xp:1800 },
+          { id:'father', name:'Father Presence', desc:'Alaena school runs Mon/Tue/Thu 8-9am. Present. The goal: guilt-free, not just present.', xp:1400 },
+          { id:'guilt_free', name:'Guilt-Free Time', desc:'Currently squeezed by load. Key metric to protect as capacity grows.', xp:680 },
+        ]},
+      { id:'extended', name:'Extended Family', desc:'Syrian family dynamics. Son role. Brother role.',
+        subcategories:[
+          { id:'son', name:'Son Role', desc:'Eldest. The responsible one. £2k guilt is identity-level because of this role.', xp:960 },
+          { id:'brother', name:'Brother Role', desc:'Older brother. Protective instinct. Not individualistic — family as a unit.', xp:720 },
+          { id:'fam_stability', name:'Family Stability', desc:'Close-knit Syrian family. Father/brother/mother dynamics navigated with care.', xp:640 },
+        ]},
+      { id:'relationships', name:'Relationships', desc:'Friendships and business partnerships.',
+        subcategories:[
+          { id:'friends', name:'Friendships', desc:'Not heavily tracked. Maintained through shared history and genuine loyalty.', xp:480 },
+          { id:'biz_partners', name:'Business Partnerships', desc:'Rashid (Ghost Note co-founder). Alex Pfeffer (music mentor). Trust-based.', xp:560 },
+        ]},
+    ]},
+
+  { id:'mindset', name:'MINDSET', color:'var(--mindset)', hex:'#00ddcc', rank:'OBSERVER',
+    categories:[
+      { id:'self_mastery', name:'Self-Mastery', desc:'Self-awareness, translating insight into action, consistency.',
+        subcategories:[
+          { id:'self_aware', name:'Self-Awareness', desc:'Exceptional. Can name every blocker with precision. This is real and accurate.', xp:2700 },
+          { id:'action', name:'Action on Insight', desc:'The documented gap. Watches himself not breaking patterns he understands fully. Sequencing problem not capability.', xp:680 },
+          { id:'consistency', name:'Consistency Engine', desc:'Burst executor building long-game stamina. Gym streak is the current live example.', xp:820 },
+          { id:'identity_arch', name:'Identity Architecture', desc:'Uses external structures to hold the person he is becoming before he fully feels like that person yet. The Cave name, Joseph Campbell quote, £100m goals list, the RPG system itself — all identity scaffolding. Distinct from Systems Thinking (efficiency) or Self-Awareness (insight). Specifically: using architecture to stabilise identity under pressure.', xp:500 },
+        ]},
+      { id:'os', name:'Operating System', desc:'How the brain runs — parallel processing, burst execution.',
+        subcategories:[
+          { id:'parallel', name:'Parallel Processing', desc:'Runs multiple ambition theatres simultaneously. Wired for it. Needs sequencing not slowing down.', xp:1400 },
+          { id:'burst', name:'Burst Execution', desc:'Designs architecture before doing work. Brain lights up in design phase. Has to push through maintenance.', xp:960 },
+        ]},
+      { id:'resilience_cat', name:'Resilience', desc:'Recovery from adversity, anxiety tools, identity stability.',
+        subcategories:[
+          { id:'post_adv', name:'Post-Adversity Recovery', desc:'Panic attack analysed. Redundancy restructured. Pattern: constructive action not collapse.', xp:1100 },
+          { id:'anx_tools', name:'Anxiety Tools', desc:'4-6 breathing. Grounding. Magical thinking labelled. Internalised not just known.', xp:840 },
+          { id:'identity', name:'Identity Stability', desc:'Core principles held under pressure. Commitment, integrity, anti-betrayal. Identity-level constants.', xp:980 },
+        ]},
+    ]},
+];
+
+// ============================================================
+// MATHS ENGINE
+// ============================================================
+function getPassiveLevel(p){ return Math.floor(p.xp/PASSIVE_THRESHOLD)+1 }
+function getPassiveBoost(p){ return getPassiveLevel(p)*BOOST_PER_LEVEL }
+
+function getLeafXPWithBoosts(pillarId, catId, subId, rawXP){
+  let totalBoost=0;
+  PASSIVES.forEach(p=>{
+    p.buffs.forEach(b=>{
+      const parts=b.split('.');
+      if(parts.length>=3){
+        const pId=parts[0].toLowerCase().replace(/\s+/g,'-');
+        const cName=parts[1];
+        const sName=parts[2];
+        const pillar=PILLARS.find(x=>x.id===pillarId);
+        const cat=pillar?.categories.find(x=>x.name===cName||x.id===catId);
+        const sub=cat?.subcategories.find(x=>x.name===sName||x.id===subId);
+        if(sub&&cat&&pillar&&p.pillars.includes(pillarId)){
+          totalBoost+=getPassiveBoost(p);
+        }
+      }
+    });
+  });
+  return Math.round(rawXP*(1+totalBoost));
+}
+
+function calcSubcategoryXP(pillarId,catId,sub){
+  return getLeafXPWithBoosts(pillarId,catId,sub.id,sub.xp);
+}
+
+function calcCategoryXP(pillarId,cat){
+  return cat.subcategories.reduce((a,s)=>a+calcSubcategoryXP(pillarId,cat.id,s),0);
+}
+
+function calcPillarXP(pillar){
+  return pillar.categories.reduce((a,c)=>a+calcCategoryXP(pillar.id,c),0);
+}
+
+function calcGlobalXP(){
+  return PILLARS.reduce((a,p)=>a+calcPillarXP(p),0);
+}
+
+function lvl(xp,threshold){ return Math.floor(xp/threshold)+1 }
+function pct(xp,threshold){ return Math.round(((xp%threshold)/threshold)*100) }
+function xpToNext(xp,threshold){ return threshold-(xp%threshold) }
+
+function verifyMaths(){
+  let errors=[];
+  PILLARS.forEach(p=>{
+    const derived=calcPillarXP(p);
+    p.categories.forEach(c=>{
+      const derivedCat=calcCategoryXP(p.id,c);
+      c.subcategories.forEach(s=>{
+        if(s.xp<0) errors.push(`NEGATIVE XP: ${p.name} > ${c.name} > ${s.name}`);
+      });
+    });
+  });
+  return errors;
+}
+
+function getPassivesForNode(pillarId,catId,subId){
+  return PASSIVES.filter(p=>{
+    return p.buffs.some(b=>{
+      const parts=b.split('.');
+      if(!parts.length) return false;
+      const pillar=PILLARS.find(x=>x.id===pillarId);
+      if(!pillar) return false;
+      if(subId){
+        const cat=pillar.categories.find(x=>x.id===catId);
+        const sub=cat?.subcategories.find(x=>x.id===subId);
+        return sub&&(b.includes(sub.name)||b.includes(cat?.name||''));
+      }
+      if(catId){
+        const cat=pillar.categories.find(x=>x.id===catId);
+        return cat&&b.includes(cat.name);
+      }
+      return p.pillars.includes(pillarId);
+    });
+  });
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+
+// XP logs per leaf stat ID — format: {date, text, xp, fresh, milestone}
+const LOG_BY_LEAF = {
+  'weight':    [{date:'08 May 2026',text:'Weight logged: 116.5kg — down 3.5kg from start',xp:80,fresh:true},{date:'21 Apr 2026',text:'Starting weight logged: 120kg',xp:0,fresh:false}],
+  'gym':       [{date:'May 2026',text:'Push/Pull/Legs split locked in — full structured programme',xp:200,fresh:true},{date:'May 2026',text:'Leisure Centre sessions added: Fri Pull B + Sat Push B/Legs',xp:120,fresh:false},{date:'May 2026',text:'GymProlux home kit set up',xp:80,fresh:false}],
+  'cardio':    [{date:'May 2026',text:'Rowing machine warm-up added to Leisure Centre sessions',xp:80,fresh:true},{date:'May 2026',text:'Treadmill warm-up on all home sessions',xp:60,fresh:false}],
+  'strength':  [{date:'May 2026',text:'3 sets 12-10-8 progressive overload scheme locked in',xp:120,fresh:true},{date:'May 2026',text:'Compound movements prioritised in every session',xp:80,fresh:false}],
+  'keto':      [{date:'May 2026',text:'Keto 30-40g carbs with structured meal timing confirmed',xp:160,fresh:true},{date:'Apr 2026',text:'Keto started after abandoning liquid-only plan',xp:100,fresh:false}],
+  'supps':     [{date:'May 2026',text:'Creatine monohydrate 5g daily added',xp:80,fresh:true},{date:'May 2026',text:'Electrolyte powder x2 daily added',xp:60,fresh:true},{date:'Apr 2026',text:'Core stack confirmed: Vit D, Omega 3, Vit C & Zinc, Magnesium',xp:80,fresh:false}],
+  'hydration': [{date:'May 2026',text:'1L electrolyte water at desk every morning',xp:60,fresh:true}],
+  'sleep':     [{date:'May 2026',text:'Short nights (5.5h, 5.7h) flagged — correlated with late wind-downs',xp:80,fresh:true},{date:'May 2026',text:'Magnesium before bed established as nightly habit',xp:60,fresh:false},{date:'May 2026',text:'Natural wake 6:05-6:30am without alarm — circadian rhythm stabilised',xp:80,fresh:false}],
+  'rest':      [{date:'May 2026',text:'Wed and Sun full rest built into split and protected',xp:120,fresh:true}],
+  'stress':    [{date:'May 2026',text:'Depletion vs laziness distinction understood and operational',xp:120,fresh:true},{date:'May 2026',text:'Load awareness — not running all threads at full intensity simultaneously',xp:80,fresh:false}],
+  'anxiety':   [{date:'May 2026',text:'4-6 breathing internalised as first response tool',xp:120,fresh:true},{date:'May 2026',text:'Grounding (5 things visible, 4 touchable) operational',xp:80,fresh:false},{date:'May 2026',text:'Magical thinking labelled rather than engaged',xp:80,fresh:false}],
+  'panic_rec': [{date:'17 Apr 2026',text:'Significant panic attack — survived and fully analysed',xp:300,fresh:false,milestone:true},{date:'May 2026',text:'Pattern identified: nighttime quiet + tired brain → what-if spiral → body response',xp:120,fresh:false},{date:'May 2026',text:'Cold/tension chest pain correctly attributed to musculoskeletal not cardiac',xp:100,fresh:false}],
+  'emo_reg':   [{date:'May 2026',text:'Documents for emotional clarity not reference — writing as processing tool',xp:120,fresh:true},{date:'May 2026',text:'A/B framework: B instinct leads, A refines — not the other way',xp:80,fresh:false}],
+  'comp':      [{date:'May 2026',text:'Aesthetic Composition direction named as core creative identity',xp:200,fresh:true},{date:'May 2026',text:'Joey Sturgis reaction confirmed: next-level. Not performance, genuine.',xp:300,fresh:false},{date:'Apr 2026',text:'Own sound identified: orchestral + synth + metal, unconventional structure',xp:200,fresh:false}],
+  'metal':     [{date:'May 2026',text:'Prog metal confirmed as strongest domain and base identity',xp:200,fresh:false},{date:'May 2026',text:'Different guitar tones per section — deliberate and distinctive',xp:160,fresh:false}],
+  'synth':     [{date:'May 2026',text:'Devastator/Mick Gordon path started via tutorials',xp:200,fresh:true},{date:'May 2026',text:'Glitch/modular identified as newest obsession — Gatchakuta/JJK style',xp:100,fresh:true}],
+  'orch':      [{date:'May 2026',text:'Hiroyuki Sawano identified as orchestral target — copy to learn, own phrasing will emerge',xp:120,fresh:true},{date:'May 2026',text:'Deferred: orchestral study after Devastator/glitch exploration',xp:0,fresh:false}],
+  'glitch':    [{date:'May 2026',text:'Crunchy aggressive glitch percs identified as the exciting frontier',xp:200,fresh:true}],
+  'guitar':    [{date:'May 2026',text:'Guitar serves composition — solid enough for the work required',xp:200,fresh:false}],
+  'strategy':  [{date:'May 2026',text:'Steam Next Fest Jun 15-22 added to calendar as prospecting blitz',xp:100,fresh:true},{date:'May 2026',text:'Rate formalised: $300-400/min delivered (USD)',xp:200,fresh:true},{date:'May 2026',text:'Budget question established: ask before writing free track',xp:80,fresh:true},{date:'May 2026',text:'Delivery sentence formalised for every free track sent',xp:80,fresh:true}],
+  'pipeline_stat':[{date:'May 2026',text:'SkyRen demo active — deadline 15 May 2026',xp:150,fresh:true},{date:'May 2026',text:'6 projects tracked: Caveshifter, Tamzin Twins, Yomifuda, Orbital, Soulcery, Bones & Coins',xp:100,fresh:false}],
+  'sales_craft':[{date:'2022-2026',text:'insightsoftware SAP BDR/ADR — enterprise sales at professional level',xp:600,fresh:false},{date:'2017-2022',text:'Noisesharks CEO — sales as founder',xp:400,fresh:false},{date:'Pre-2017',text:'Retail + telecoms: Maplin, Harrods, Harvey Nichols, Selfridges, Lebara, Three',xp:400,fresh:false}],
+  'enterprise': [{date:'2022-2026',text:'insightsoftware SAP BDR/ADR — complex enterprise pipeline management',xp:800,fresh:false},{date:'2022',text:'SAP enterprise BDR methodology learned and applied',xp:400,fresh:false}],
+  'job_hunt':  [{date:'06 May 2026',text:'Made redundant from Incode — not performance-related',xp:100,fresh:true},{date:'Apr 2026',text:'Incode role landed as Digital Security Consultant BDR',xp:300,fresh:false,milestone:true}],
+  'se_csm':    [{date:'May 2026',text:'SE/CSM target locked: pre-sales or CS — commission + customer, no pure closing quota',xp:150,fresh:true}],
+  'pro_network':[{date:'May 2026',text:'Alex Pfeffer mentor relationship established and regular',xp:200,fresh:true},{date:'May 2026',text:'Game dev community contacts building via prospecting',xp:100,fresh:true}],
+  'gn_sales':  [{date:'May 2026',text:'Ghost Note operational — sales in progress but not consistently 5-10/week',xp:200,fresh:true}],
+  'gn_product':[{date:'May 2026',text:'Real product. Real differentiation. Built and operational with Rashid.',xp:400,fresh:false}],
+  'gn_mktg':   [{date:'May 2026',text:'Marketing needs consistent push — identified as core gap',xp:80,fresh:true}],
+  'noisesharks':[{date:'2017-2022',text:'Noisesharks Co-founder and CEO — music tech startup',xp:600,fresh:false,milestone:true},{date:'2022',text:'Noisesharks wound down — lessons fully internalised',xp:200,fresh:false}],
+  'budget':    [{date:'May 2026',text:'IncomeSplit 2026 sheet active. Monthly valuation session running.',xp:400,fresh:true},{date:'2025',text:'IncomeSplit 2025 sheet completed',xp:200,fresh:false}],
+  'debt':      [{date:'May 2026',text:'£2k to mother — acknowledged, identity-level, plan in motion',xp:120,fresh:true}],
+  'income':    [{date:'May 2026',text:'Music rate formalised at $300-400/min. Multiple income streams building.',xp:160,fresh:true},{date:'Apr 2026',text:'Incode £55k base + £23k OTE (now redundant)',xp:200,fresh:false}],
+  'savings':   [{date:'May 2026',text:'No margin right now — acknowledged and tracked',xp:80,fresh:true}],
+  'partner':   [{date:'May 2026',text:'Wife identified as core stabilising force and anchor',xp:400,fresh:false}],
+  'father':    [{date:'May 2026',text:'School runs Mon/Tue/Thu 8-9am — consistent presence',xp:300,fresh:false}],
+  'guilt_free':[{date:'May 2026',text:'Guilt-free time identified as key metric to protect and grow',xp:200,fresh:true}],
+  'son':       [{date:'May 2026',text:'£2k guilt: identity-level because of eldest responsible son role',xp:200,fresh:true}],
+  'brother':   [{date:'May 2026',text:'Protective instinct toward younger brother — active',xp:200,fresh:false}],
+  'fam_stability':[{date:'May 2026',text:'Syrian family dynamics navigated with care. Not individualistic.',xp:200,fresh:false}],
+  'friends':   [{date:'May 2026',text:'Maintained through genuine loyalty and shared history',xp:120,fresh:false}],
+  'biz_partners':[{date:'May 2026',text:'Rashid: Ghost Note co-founder. Alex Pfeffer: music mentor. Both trust-based.',xp:200,fresh:false}],
+  'self_aware':[{date:'May 2026',text:'Can name every blocker with precision — documented across multiple conversations',xp:600,fresh:false},{date:'Apr 2026',text:'Identified validation architecture: peak reaction = I matter. Distortion acknowledged.',xp:400,fresh:false}],
+  'action':    [{date:'May 2026',text:'Gap explicitly named: insight without action = paralysis. Watching self not breaking known patterns.',xp:200,fresh:true},{date:'May 2026',text:'One-change rule introduced: open track with goal of changing one thing only',xp:80,fresh:true}],
+  'consistency':[{date:'May 2026',text:'Gym streak: Push/Pull/Legs running consistently',xp:200,fresh:true},{date:'May 2026',text:'Burst executor building long-game stamina — acknowledged as growth area',xp:120,fresh:false}],
+  'parallel':  [{date:'May 2026',text:'Parallel processor confirmed: needs multiple theatres simultaneously. Not scatter — wiring.',xp:400,fresh:false}],
+  'burst':     [{date:'May 2026',text:'Systems designed before execution begins — brain lights up in design phase',xp:280,fresh:false}],
+  'post_adv':  [{date:'06 May 2026',text:'Redundancy: calendar restructured same day. Constructive not collapse.',xp:300,fresh:true,milestone:true},{date:'17 Apr 2026',text:'Panic attack: survived, analysed, built tools. Constructive not collapse.',xp:300,fresh:false,milestone:true}],
+  'anx_tools': [{date:'May 2026',text:'4-6 breathing + grounding + labelling magical thinking — all operational',xp:300,fresh:false},{date:'May 2026',text:'Body sensations correctly interpreted: panic physiology not cardiac',xp:160,fresh:false}],
+  'identity':  [{date:'May 2026',text:'Core principles held: commitment, integrity, anti-betrayal, anti-bullying',xp:300,fresh:false},{date:'May 2026',text:'Life RPG system itself: turning self-knowledge into a structured system',xp:200,fresh:true}],
+  'identity_arch':[{date:'13 May 2026',text:'Identity Architecture named and confirmed as distinct trait — external structures as scaffolding for future self',xp:200,fresh:true},{date:'May 2026',text:'Named workspace The Cave. Saved Joseph Campbell quote about caves as source of what you seek.',xp:100,fresh:false},{date:'May 2026',text:'£100m financial goals list built — future-self projection in present tense',xp:100,fresh:false},{date:'13 May 2026',text:'Life RPG system is itself an act of Identity Architecture — turning who you are becoming into a structure',xp:100,fresh:true}],
+};
+
+const MILESTONES=[
+  {t:'Panic attack survived and analysed (17 Apr 2026)',c:'#ff3355',xp:500,done:true},
+  {t:'Incode role landed (Apr 2026)',c:'#f0b030',xp:800,done:true},
+  {t:'Redundancy handled with calm — restructured same day (6 May)',c:'#00ddcc',xp:600,done:true},
+  {t:'Push/Pull/Legs split locked in (May 2026)',c:'#ff3355',xp:300,done:true},
+  {t:'Weight: 120kg → 116.5kg in 3 weeks',c:'#ff3355',xp:400,done:true},
+  {t:'Game prospecting funnel built. Rate $300-400/min formalised',c:'#f0b030',xp:400,done:true},
+  {t:'Ghost Note Accessories co-founded and operational',c:'#f0b030',xp:500,done:true},
+  {t:'Life RPG system v5 built — hierarchy, maths, passive boosts, leaf detail, new passives (13 May 2026)',c:'#00ddcc',xp:500,done:true},
+  {t:'Cross-Domain Pattern Recognition named — genre-blending mechanism confirmed (13 May 2026)',c:'#00ddcc',xp:300,done:true},
+  {t:'3 new passives discovered: Contextual Courage, Audience Instinct, Cross-Domain Pattern (13 May 2026)',c:'#00ddcc',xp:400,done:true},
+  {t:'SkyRen demo delivered (due 15 May 2026)',c:'#f0b030',xp:700,done:false},
+  {t:'Reach 100kg body weight',c:'#ff3355',xp:1000,done:false},
+  {t:'First paid music placement or sync',c:'#f0b030',xp:2000,done:false},
+  {t:'Ghost Note: 5-10 units/week for 4 consecutive weeks',c:'#f0b030',xp:800,done:false},
+  {t:'New SE or CSM role landed',c:'#f0b030',xp:1500,done:false},
+  {t:'Clear £2k to mother',c:'#ff4499',xp:1200,done:false},
+  {t:'Steam Next Fest blitz (15-22 Jun 2026)',c:'#f0b030',xp:500,done:false},
+  {t:'First game credit at any studio',c:'#f0b030',xp:5000,done:false},
+];
+
+const LOG=[
+  {t:'3 new passives added: Contextual Courage, Audience Instinct, Cross-Domain Pattern Recognition',xp:'+500 XP MINDSET + WEALTH',fresh:true},
+  {t:'New leaf stat: Identity Architecture added to Mindset > Self-Mastery',xp:'+200 XP Identity Architecture',fresh:true},
+  {t:'Genre-blending mechanism confirmed: hears genres as problem-solving toolkits not identities',xp:'+80 XP Composition, +150 XP Pattern Recognition',fresh:true},
+  {t:'GitHub pipeline built from scratch in single session — v1 through v5 deployed',xp:'+150 XP Contextual Courage',fresh:true},
+  {t:'Life RPG v4: full hierarchy, maths engine, passive boosts, subcategories',xp:'+500 XP Identity Stability',fresh:true},
+  {t:'Weight logged: 116.5kg (8 May) — 3.5kg down',xp:'+80 XP Weight Progress',fresh:true},
+  {t:'Push/Pull/Legs split locked in',xp:'+200 XP Gym Consistency',fresh:true},
+  {t:'SkyRen demo active — deadline 15 May',xp:'+150 XP Active Pipeline',fresh:false},
+  {t:'Redundancy from Incode — restructured calendar same day',xp:'+300 XP Post-Adversity Recovery',fresh:false},
+  {t:'Creatine + electrolytes added to stack',xp:'+60 XP Supplements & Stack',fresh:false},
+  {t:'Game prospecting funnel built. Rate formalised.',xp:'+200 XP Game Score Strategy',fresh:false},
+  {t:'Alex Pfeffer mentor sessions regular',xp:'+80 XP Professional Network',fresh:false},
+  {t:'Panic attack analysed. Tools internalised.',xp:'+300 XP Panic Recovery',fresh:false},
+  {t:'Incode role landed (Apr 2026)',xp:'+400 XP Job Hunt',fresh:false},
+];
+
+function barHTML(p,color,h=3){
+  return`<div class="bar" style="height:${h}px"><div class="bf" style="width:${p}%;background:${color};height:${h}px"></div></div>`;
+}
+
+let activeTab='overview';
+let drillStack=[]; // [{type:'pillar'|'cat'|'sub', id, parentId}]
+let prevTabBeforePassive='overview';
+
+function init(){
+  const errors=verifyMaths();
+  const mathBar=document.getElementById('mathBar');
+  if(errors.length===0){
+    mathBar.innerHTML='<span class="math-ok">✓ MATHS VERIFIED — All parent XP totals match derived sums from leaf stats</span>';
+  } else {
+    mathBar.innerHTML='<span class="math-err">✗ INCONSISTENCY: '+errors.join(' | ')+'</span>';
+  }
+
+  const gxp=calcGlobalXP();
+  const glv=lvl(gxp,THRESHOLDS.global);
+  const gPct=pct(gxp,THRESHOLDS.global);
+  document.getElementById('glvn').textContent=glv;
+  document.getElementById('gxpF').style.width=gPct+'%';
+  document.getElementById('gxpN').textContent=gxp.toLocaleString()+' XP | NEXT: '+xpToNext(gxp,THRESHOLDS.global).toLocaleString();
+
+  renderOverview();
+  renderPassives();
+  renderMilestones();
+  renderLog();
+  renderDrill();
+}
+
+function renderOverview(){
+  const leftPillars=document.getElementById('leftPillars');
+  const rightPillars=document.getElementById('rightPillars');
+  const left=['health','wealth'];
+  const right=['love','mindset'];
+
+  function pillarCard(p,side){
+    const xp=calcPillarXP(p);
+    const lv=lvl(xp,THRESHOLDS.pillar);
+    const pc=pct(xp,THRESHOLDS.pillar);
+    const cats=p.categories.map(c=>{
+      const cxp=calcCategoryXP(p.id,c);
+      const clv=lvl(cxp,THRESHOLDS.cat);
+      return`<div class="pc-cat-mini"><span>${c.name}</span><span style="color:${p.hex}">LV${clv}</span></div>`;
+    }).join('');
+    return`<div class="pcard ${side==='left'?'lft':'rgt'}" style="--pc:${p.color}" onclick="drillTo('pillar','${p.id}')">
+      <div class="pc-head">
+        <div><div class="pc-n">${p.name}</div><div class="pc-rk">${p.rank}</div></div>
+        <div><div class="pc-lvl">LV</div><div class="pc-lv">${lv}</div></div>
+      </div>
+      ${barHTML(pc,p.hex)}
+      <div class="pc-xp"><span>${xp.toLocaleString()} XP</span><span>${pc}%</span></div>
+      <div class="pc-cats">${cats}</div>
+    </div>`;
+  }
+
+  leftPillars.innerHTML=left.map(id=>{
+    const p=PILLARS.find(x=>x.id===id);
+    return pillarCard(p,'left');
+  }).join('');
+  rightPillars.innerHTML=right.map(id=>{
+    const p=PILLARS.find(x=>x.id===id);
+    return pillarCard(p,'right');
+  }).join('');
+}
+
+function renderPassives(){
+  const grid=document.getElementById('passGrid');
+  grid.innerHTML=PASSIVES.map(p=>{
+    const lv=getPassiveLevel(p);
+    const boost=(getPassiveBoost(p)*100).toFixed(1);
+    const dots=p.pillars.map(pid=>{
+      const pl=PILLARS.find(x=>x.id===pid);
+      return`<div class="p-dot" style="background:${pl?.hex||'#888'}"></div>`;
+    }).join('');
+    return`<div class="passive" onclick="showPassive('${p.id}')">
+      <div class="p-icon">${p.icon}</div>
+      <div class="p-name">${p.name}</div>
+      <div class="p-lv">LV ${lv}</div>
+      <div class="p-boost">+${boost}% boost</div>
+      <div class="p-dots">${dots}</div>
+    </div>`;
+  }).join('');
+}
+
+function drillTo(type,id,parentCatId){
+  if(type==='pillar'){
+    drillStack=[{type:'pillar',id}];
+  } else if(type==='cat'){
+    const last=drillStack[drillStack.length-1];
+    drillStack=[{type:'pillar',id:last.id},{type:'cat',id,pillarId:last.id}];
+  } else if(type==='sub'){
+    const last=drillStack[drillStack.length-1];
+    drillStack.push({type:'sub',id,pillarId:last.pillarId||last.id,catId:last.id});
+  }
+  setTab('drill');
+  renderDrill();
+}
+
+function drillBack(index){
+  drillStack=drillStack.slice(0,index+1);
+  renderDrill();
+}
+
+function renderDrill(){
+  const bc=document.getElementById('breadcrumb');
+  const content=document.getElementById('drillContent');
+  if(drillStack.length===0){
+    bc.innerHTML='<span class="bc-current">SELECT A PILLAR FROM OVERVIEW</span>';
+    content.innerHTML='<div style="padding:30px 20px;font-family:var(--mono);font-size:10px;color:var(--tx3);letter-spacing:2px">CLICK ANY PILLAR CARD IN THE OVERVIEW TAB TO DRILL DOWN</div>';
     return;
   }
-  localStorage.setItem('tarek_rpg_api_key', key);
-  showMainPanel();
-  loadData();
-}
 
-function clearKey() {
-  localStorage.removeItem('tarek_rpg_api_key');
-  document.getElementById('configBox').style.display = 'block';
-  document.getElementById('mainPanel').style.display = 'none';
-  document.getElementById('apiKeyInput').value = '';
-}
+  // Build breadcrumb
+  let bcParts=['<span class="bc-item" onclick="setTab(\'overview\')">OVERVIEW</span>'];
+  drillStack.forEach((node,i)=>{
+    bcParts.push('<span class="bc-sep">›</span>');
+    let name='';
+    if(node.type==='pillar'){
+      name=PILLARS.find(p=>p.id===node.id)?.name||node.id;
+    } else if(node.type==='cat'){
+      const p=PILLARS.find(x=>x.id===node.pillarId);
+      name=p?.categories.find(c=>c.id===node.id)?.name||node.id;
+    } else if(node.type==='sub'){
+      const p=PILLARS.find(x=>x.id===node.pillarId);
+      const c=p?.categories.find(x=>x.id===node.catId);
+      name=c?.subcategories.find(s=>s.id===node.id)?.name||node.id;
+    }
+    if(i===drillStack.length-1){
+      bcParts.push(`<span class="bc-current">${name.toUpperCase()}</span>`);
+    } else {
+      bcParts.push(`<span class="bc-item" onclick="drillBack(${i})">${name.toUpperCase()}</span>`);
+    }
+  });
+  bc.innerHTML=bcParts.join('');
 
-function showMainPanel() {
-  document.getElementById('configBox').style.display = 'none';
-  document.getElementById('mainPanel').style.display = 'block';
-}
+  // Render current node
+  const current=drillStack[drillStack.length-1];
+  let html='';
 
-function setStatus(msg, type) {
-  const el = document.getElementById('statusBar');
-  el.textContent = msg;
-  el.className = 'status ' + type;
-}
-
-async function loadData() {
-  const key = localStorage.getItem('tarek_rpg_api_key');
-  if (!key) { clearKey(); return; }
-
-  setStatus('SYNCING WITH NOTION...', 'loading');
-  document.getElementById('refreshBtn').disabled = true;
-
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 500,
-        system: `You are a data extraction assistant. Return ONLY a valid JSON object with no markdown, no backticks, no explanation. Just raw JSON with these fields:
-- name: full name
-- title: main role in 4-6 words
-- currentWeight: current weight as string e.g. "116.5kg"
-- targetWeight: short-term target as string e.g. "100kg"
-- globalLevel: RPG level 1-20 based on overall life progress
-- activeProjects: number of active music projects as string e.g. "6 active"
-- jobStatus: employment status in 4-5 words`,
-        messages: [{
-          role: 'user',
-          content: `Extract the required JSON fields from this profile data:
-
-Name: Tarek Ghanameh, 32, 180cm.
-Weight: dropped from 120kg to 116.5kg (8 May 2026). Target: 100kg short term, 90kg long term.
-Job: Made redundant from Incode 6 May 2026. Actively hunting SE or CSM role.
-Music: Games and trailer composer TarekMG. Active pipeline: SkyRen (due 15 May), Caveshifter, Tamzin Twins, Yomifuda, Orbital, Soulcery, Bones and Coins. Mentor: Alex Pfeffer. Rate $300-400/min.
-Business: Co-founder Ghost Note Accessories with Rashid.
-Goals: 100kg, first paid game placement, Ghost Note 5-10 sales/week, clear £2k debt.
-
-Return only the JSON object.`
-        }]
-      })
+  if(current.type==='pillar'){
+    const p=PILLARS.find(x=>x.id===current.id);
+    const xp=calcPillarXP(p);
+    const lv=lvl(xp,THRESHOLDS.pillar);
+    const pc=pct(xp,THRESHOLDS.pillar);
+    html+=drillHero(p.name,'PILLAR',p.desc,lv,xp,THRESHOLDS.pillar,p.hex,p.rank);
+    html+=`<div class="drill-children"><div class="dc-label">CATEGORIES — click to drill deeper</div>`;
+    p.categories.forEach(c=>{
+      const cxp=calcCategoryXP(p.id,c);
+      const clv=lvl(cxp,THRESHOLDS.cat);
+      const cpc=pct(cxp,THRESHOLDS.cat);
+      html+=childCard(c.name,'CATEGORY',c.desc,clv,cxp,THRESHOLDS.cat,p.hex,cpc,`drillTo('cat','${c.id}')`);
     });
+    html+='</div>';
+    html+=passiveTagsSection(getPassivesForNode(p.id,null,null),'PASSIVES BUFFING THIS PILLAR');
 
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || 'API error ' + response.status);
-    }
-
-    const data = await response.json();
-    const rawText = data.content[0].text.trim();
-
-    let parsed;
-    try {
-      parsed = JSON.parse(rawText);
-    } catch {
-      const match = rawText.match(/\{[\s\S]*\}/);
-      if (match) parsed = JSON.parse(match[0]);
-      else throw new Error('Could not parse response');
-    }
-
-    document.getElementById('playerName').textContent = parsed.name || 'TAREK GHANAMEH';
-    document.getElementById('playerTitle').textContent = (parsed.title || 'CREATOR / WARRIOR / COMPOSER').toUpperCase();
-    document.getElementById('statWeight').textContent = parsed.currentWeight || '116.5kg';
-    document.getElementById('statTarget').textContent = parsed.targetWeight || '100kg';
-    document.getElementById('statLevel').textContent = 'LV ' + (parsed.globalLevel || '8');
-    document.getElementById('statProjects').textContent = parsed.activeProjects || '6 active';
-    document.getElementById('statJob').textContent = parsed.jobStatus || 'Hunting — redundant May 2026';
-    document.getElementById('statSync').textContent = new Date().toLocaleTimeString();
-
-    setStatus('NOTION SYNC COMPLETE', 'success');
-
-  } catch (err) {
-    console.error(err);
-    setStatus('ERROR: ' + err.message, 'error');
+  } else if(current.type==='cat'){
+    const p=PILLARS.find(x=>x.id===current.pillarId);
+    const c=p?.categories.find(x=>x.id===current.id);
+    const xp=calcCategoryXP(p.id,c);
+    const lv=lvl(xp,THRESHOLDS.cat);
+    html+=drillHero(c.name,'CATEGORY',c.desc,lv,xp,THRESHOLDS.cat,p.hex,p.rank);
+    html+=`<div class="drill-children"><div class="dc-label">LEAF STATS</div>`;
+    c.subcategories.forEach(s=>{
+      const sxp=calcSubcategoryXP(p.id,c.id,s);
+      const slv=lvl(sxp,THRESHOLDS.leaf);
+      const spc=pct(sxp,THRESHOLDS.leaf);
+      const boost=sxp-s.xp;
+      const boostStr=boost>0?`<div class="cc-boost">+${boost} XP from passive boosts</div>`:'';
+      html+=childCard(s.name,'LEAF STAT',s.desc,slv,sxp,THRESHOLDS.leaf,p.hex,spc,`drillToLeaf('${p.id}','${c.id}','${s.id}')`,boostStr);
+    });
+    html+='</div>';
+    html+=passiveTagsSection(getPassivesForNode(p.id,c.id,null),'PASSIVES BUFFING THIS CATEGORY');
   }
 
-  document.getElementById('refreshBtn').disabled = false;
+  content.innerHTML=html;
 }
 
-window.addEventListener('load', () => {
-  const key = localStorage.getItem('tarek_rpg_api_key');
-  if (key) { showMainPanel(); loadData(); }
-});
+function drillHero(name,type,desc,lv,xp,threshold,hex,rank){
+  const pc=pct(xp,threshold);
+  return`<div class="drill-hero">
+    <div class="dh-row">
+      <div>
+        <div class="dh-name" style="color:${hex}">${name}</div>
+        <div class="dh-type">${type}</div>
+        <div class="dh-desc">${desc}</div>
+      </div>
+      <div>
+        <div class="dh-lv" style="color:${hex}">${lv}</div>
+        <div class="dh-rk">${rank||type}</div>
+      </div>
+    </div>
+    <div style="margin-top:10px">${barHTML(pc,hex,5)}</div>
+    <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;color:var(--tx3);margin-top:4px">
+      <span>${xp.toLocaleString()} / ${((Math.floor(xp/threshold)+1)*threshold).toLocaleString()} XP</span>
+      <span>${xpToNext(xp,threshold)} TO NEXT LEVEL</span>
+    </div>
+  </div>`;
+}
+
+function childCard(name,type,desc,lv,xp,threshold,hex,pc,onclick,extra=''){
+  return`<div class="child-card" style="--cc:${hex}" ${onclick?`onclick="${onclick}"`:''}">
+    <div class="cc-head">
+      <div class="cc-name">${name}</div>
+      <div class="cc-lv" style="color:${hex}">LV ${lv}</div>
+    </div>
+    ${barHTML(pc,hex)}
+    <div class="cc-xp"><span>${xp.toLocaleString()} XP</span><span>${pc}% to LV${lv+1}</span></div>
+    <div class="cc-desc">${desc}</div>
+    ${extra}
+  </div>`;
+}
+
+function passiveTagsSection(passives,label){
+  if(!passives.length) return'';
+  const tags=passives.map(p=>{
+    const lv=getPassiveLevel(p);
+    const boost=(getPassiveBoost(p)*100).toFixed(1);
+    const dots=p.pillars.map(pid=>{
+      const pl=PILLARS.find(x=>x.id===pid);
+      return`<div class="ptdot" style="background:${pl?.hex||'#888'}"></div>`;
+    }).join('');
+    return`<div class="pt-tag" onclick="showPassive('${p.id}')"><span>${p.icon}</span>${p.name} LV${lv} (+${boost}%)<span style="display:flex;gap:3px">${dots}</span></div>`;
+  }).join('');
+  return`<div class="passive-tags-section">
+    <div class="pt-label">${label}</div>
+    <div class="pt-grid">${tags}</div>
+  </div>`;
+}
+
+function showPassive(id){
+  prevTabBeforePassive=activeTab;
+  const p=PASSIVES.find(x=>x.id===id);
+  const lv=getPassiveLevel(p);
+  const boost=(getPassiveBoost(p)*100).toFixed(1);
+  const pc=pct(p.xp,PASSIVE_THRESHOLD);
+
+  document.getElementById('pbreadcrumb').innerHTML=`
+    <span class="bc-item" onclick="setTab(prevTabBeforePassive)">← BACK</span>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">PASSIVE: ${p.name.toUpperCase()}</span>
+  `;
+
+  const pillarsTagged=p.pillars.map(pid=>{
+    const pl=PILLARS.find(x=>x.id===pid);
+    return`<div class="pd-bt" style="color:${pl?.hex};border-color:${pl?.hex};background:${pl?.hex}18">${pl?.name.toUpperCase()}</div>`;
+  }).join('');
+
+  const leafsBuffed=p.buffs.map(b=>`<div style="margin-bottom:3px">↳ ${b}</div>`).join('');
+
+  document.getElementById('pdContent').innerHTML=`
+    <div class="pd-head">
+      <div class="pd-icon">${p.icon}</div>
+      <div>
+        <div class="pd-name">${p.name.toUpperCase()}</div>
+        <div class="pd-meta">PASSIVE SKILL &nbsp;|&nbsp; LEVEL ${lv} &nbsp;|&nbsp; +${boost}% BOOST &nbsp;|&nbsp; ${p.xp.toLocaleString()} XP</div>
+      </div>
+    </div>
+    <div style="margin-bottom:14px">${barHTML(pc,'var(--acc)',5)}</div>
+    <div class="pd-desc">${p.desc}</div>
+    <div class="pd-section-lbl">PILLARS BUFFED:</div>
+    <div class="pd-buff-tags" style="margin-bottom:14px">${pillarsTagged}</div>
+    <div class="pd-section-lbl">LEAF STATS BUFFED:</div>
+    <div style="font-family:var(--mono);font-size:9px;color:var(--tx3);line-height:1.8;margin-bottom:14px;letter-spacing:1px">${leafsBuffed}</div>
+    <div class="pd-section-lbl">WHAT EARNS XP FOR THIS PASSIVE:</div>
+    <div class="pd-sources">${p.sources}</div>
+  `;
+  setTab('passive');
+}
+
+function renderMilestones(){
+  document.getElementById('msWrap').innerHTML=`
+    <div class="ms-slbl">COMPLETED</div>
+    ${MILESTONES.filter(m=>m.done).map(m=>`
+      <div class="ms"><div class="ms-dot" style="background:${m.c}"></div><div class="ms-txt">${m.t}</div><div class="ms-xp">+${m.xp}</div></div>`).join('')}
+    <div class="ms-slbl">UPCOMING</div>
+    ${MILESTONES.filter(m=>!m.done).map(m=>`
+      <div class="ms pend" style="color:${m.c}"><div class="ms-dot" style="border:1px solid ${m.c};background:transparent"></div><div class="ms-txt" style="color:var(--tx3)">${m.t}</div><div class="ms-xp" style="color:var(--tx3)">+${m.xp}</div></div>`).join('')}
+  `;
+}
+
+function renderLog(){
+  document.getElementById('logWrap').innerHTML=`
+    ${LOG.map(e=>`<div class="le ${e.fresh?'fresh':''}">
+      ${e.t} <span class="lxp"> — ${e.xp}</span>
+    </div>`).join('')}
+    <div style="font-family:var(--mono);font-size:9px;color:var(--tx3);margin-top:12px;letter-spacing:1px;line-height:1.8">
+      ⟩ XP ENTERS ONLY AT LEAF STATS — PARENTS ALWAYS DERIVED<br>
+      ⟩ PASSIVE BOOSTS APPLIED AT LEAF LEVEL BEFORE FLOWING UPWARD<br>
+      ⟩ NOTION IS THE SOURCE OF TRUTH — REFRESH TO SYNC
+    </div>
+  `;
+}
+
+
+function drillToLeaf(pillarId,catId,subId){
+  const p=PILLARS.find(x=>x.id===pillarId);
+  const c=p?.categories.find(x=>x.id===catId);
+  const s=c?.subcategories.find(x=>x.id===subId);
+  if(!s) return;
+
+  const sxp=calcSubcategoryXP(pillarId,catId,s);
+  const slv=lvl(sxp,THRESHOLDS.leaf);
+  const spc=pct(sxp,THRESHOLDS.leaf);
+  const boost=sxp-s.xp;
+  const leafPassives=PASSIVES.filter(pass=>pass.buffs.some(b=>b.includes(s.name)||b.includes(c.name)));
+
+  // Breadcrumb
+  document.getElementById('leafBreadcrumb').innerHTML=`
+    <span class="bc-item" onclick="setTab('overview')">OVERVIEW</span>
+    <span class="bc-sep">›</span>
+    <span class="bc-item" onclick="drillTo('pillar','${pillarId}')">${p.name}</span>
+    <span class="bc-sep">›</span>
+    <span class="bc-item" onclick="drillTo('cat','${catId}')">${c.name}</span>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">${s.name.toUpperCase()}</span>
+  `;
+
+  // Get logs for this leaf
+  const logs=LOG_BY_LEAF[subId]||[];
+
+  // Build passives section
+  const passiveTags=leafPassives.length?leafPassives.map(pass=>{
+    const plv=getPassiveLevel(pass);
+    const pb=(getPassiveBoost(pass)*100).toFixed(1);
+    return`<div class="pt-tag" onclick="showPassive('${pass.id}')"><span>${pass.icon}</span>${pass.name} LV${plv} (+${pb}%)</div>`;
+  }).join(''):'<div class="ll-empty">No passives currently buffing this stat</div>';
+
+  document.getElementById('leafContent').innerHTML=`
+    <div class="leaf-hero">
+      <div class="lh-row">
+        <div>
+          <div class="lh-name" style="color:${p.hex}">${s.name}</div>
+          <div class="lh-type">LEAF STAT &nbsp;|&nbsp; ${c.name} &nbsp;|&nbsp; ${p.name}</div>
+          <div class="lh-desc">${s.desc}</div>
+        </div>
+        <div>
+          <div class="lh-lv" style="color:${p.hex}">${slv}</div>
+          <div class="lh-xp">LV ${slv} &nbsp;|&nbsp; ${sxp.toLocaleString()} XP</div>
+        </div>
+      </div>
+      <div style="margin-top:10px">${barHTML(spc,p.hex,5)}</div>
+      <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;color:var(--tx3);margin-top:4px">
+        <span>${sxp.toLocaleString()} / ${((slv)*THRESHOLDS.leaf).toLocaleString()} XP &nbsp;|&nbsp; Base: ${s.xp.toLocaleString()} + Passive boost: +${boost}</span>
+        <span>${xpToNext(sxp,THRESHOLDS.leaf)} XP TO LV ${slv+1}</span>
+      </div>
+    </div>
+
+    <div class="leaf-log">
+      <div class="ll-label">XP EVENT HISTORY — ${logs.length} events</div>
+      ${logs.length?logs.map(e=>`
+        <div class="ll-entry ${e.fresh?'fresh':''} ${e.milestone?'milestone':''}">
+          <span>${e.milestone?'⭐ ':''}${e.text}</span>
+          <div style="display:flex;gap:10px;align-items:baseline">
+            ${e.xp>0?`<span class="ll-xp">+${e.xp} XP</span>`:'<span style="font-size:8px;color:var(--tx3)">LOG</span>'}
+            <span class="ll-date">${e.date}</span>
+          </div>
+        </div>`).join('')
+        :'<div class="ll-empty">No events logged yet. XP credited through conversations with Claude.</div>'}
+    </div>
+
+    <div class="passive-tags-section">
+      <div class="pt-label">PASSIVES BUFFING THIS LEAF STAT</div>
+      <div class="pt-grid">${passiveTags}</div>
+    </div>
+  `;
+
+  setTab('leaf');
+}
+window.drillToLeaf=drillToLeaf;
+
+function setTab(t){
+  activeTab=t;
+  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('on'));
+  ['overview','drill','milestones','log'].forEach((name,i)=>{
+    document.querySelectorAll('.tab')[i]?.classList.toggle('on',name===t);
+  });
+  document.querySelectorAll('.tc').forEach(el=>el.classList.remove('on'));
+  const el=document.getElementById('t-'+t);
+  if(el){el.classList.add('on');el.classList.add('fi');setTimeout(()=>el.classList.remove('fi'),300)}
+}
+
+window.setTab=setTab;
+window.drillTo=drillTo;
+window.drillBack=drillBack;
+window.showPassive=showPassive;
+window.prevTabBeforePassive=prevTabBeforePassive;
+
+init();
 </script>
 </body>
 </html>

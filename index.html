@@ -19,7 +19,7 @@
 body{background:var(--bg);color:var(--tx);font-family:var(--body);min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px);pointer-events:none;z-index:1000}
 body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,100,200,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,100,200,0.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
-.wrap{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:0 0 60px}
+.wrap{position:relative;z-index:1;width:100%;padding:0 0 60px}
 
 /* HEADER */
 .hdr{background:#060c18;border-bottom:1px solid var(--b2);padding:14px 20px;display:flex;align-items:center;gap:16px;position:relative}
@@ -28,35 +28,35 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 @keyframes avp{0%,100%{box-shadow:0 0 20px var(--accg)}50%{box-shadow:0 0 35px var(--accg)}}
 .av-t{font-family:var(--mono);font-size:15px;color:var(--acc);letter-spacing:2px}
 .pi{flex:1}
-.pn{font-family:var(--font);font-size:18px;font-weight:700;letter-spacing:3px;color:#fff;text-shadow:0 0 15px var(--accg)}
-.pt{font-family:var(--mono);font-size:9px;color:var(--acc);letter-spacing:2px;margin-top:2px;opacity:.8}
+.pn{font-family:var(--font);font-size:22px;font-weight:700;letter-spacing:3px;color:#fff;text-shadow:0 0 15px var(--accg)}
+.pt{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:2px;margin-top:2px;opacity:.8}
 .buffs{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
-.chip{font-family:var(--mono);font-size:8px;padding:2px 8px;letter-spacing:1px}
+.chip{font-family:var(--mono);font-size:11px;padding:3px 10px;letter-spacing:1px}
 .chip.g{border:1px solid var(--mindset);color:var(--mindset);background:rgba(0,221,204,.06)}
 .chip.b{border:1px solid var(--acc);color:var(--acc);background:rgba(0,170,255,.06)}
 .chip.r{border:1px solid var(--health);color:var(--health);background:rgba(255,51,85,.06)}
 .chip.y{border:1px solid var(--gold);color:var(--gold);background:rgba(240,176,48,.06)}
 .glv{text-align:center;background:#08142a;border:1px solid var(--acc);padding:8px 18px;position:relative;box-shadow:0 0 15px rgba(0,170,255,.12)}
-.glv::before{content:'GLOBAL RANK';position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:7px;color:var(--acc);letter-spacing:2px;background:#060c18;padding:0 5px;white-space:nowrap}
+.glv::before{content:'GLOBAL RANK';position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:2px;background:#060c18;padding:0 5px;white-space:nowrap}
 .glvn{font-family:var(--font);font-size:38px;font-weight:900;color:var(--gold);line-height:1;text-shadow:0 0 15px rgba(240,176,48,.4)}
-.glvl{font-family:var(--mono);font-size:8px;color:var(--tx3);letter-spacing:2px;margin-top:1px}
+.glvl{font-family:var(--mono);font-size:12px;color:var(--tx3);letter-spacing:2px;margin-top:1px}
 
 /* MATH VERIFY */
-.math-bar{font-family:var(--mono);font-size:9px;padding:5px 20px;border-bottom:1px solid var(--b1);letter-spacing:2px;display:flex;align-items:center;gap:8px}
+.math-bar{font-family:var(--mono);font-size:12px;padding:5px 20px;border-bottom:1px solid var(--b1);letter-spacing:2px;display:flex;align-items:center;gap:8px}
 .math-ok{color:var(--mindset)}
 .math-err{color:var(--health)}
 
 /* GLOBAL XP */
 .gxp{background:#050a14;border-bottom:1px solid var(--b1);padding:8px 20px;display:flex;align-items:center;gap:14px}
-.gxp-lbl{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:2px;white-space:nowrap;opacity:.7}
+.gxp-lbl{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:2px;white-space:nowrap;opacity:.7}
 .gxp-tr{flex:1;height:5px;background:var(--b1);position:relative}
 .gxp-f{height:100%;background:linear-gradient(90deg,var(--acc2),var(--acc));position:relative;transition:width 1s}
 .gxp-f::after{content:'';position:absolute;right:-1px;top:-3px;width:2px;height:11px;background:#fff;opacity:.9}
-.gxp-n{font-family:var(--mono);font-size:9px;color:var(--tx3);white-space:nowrap}
+.gxp-n{font-family:var(--mono);font-size:12px;color:var(--tx3);white-space:nowrap}
 
 /* TABS */
 .tabs{display:flex;border-bottom:1px solid var(--b1);background:#050a14}
-.tab{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--tx3);padding:10px 16px;cursor:pointer;border-right:1px solid var(--b1);text-transform:uppercase;transition:color .15s,background .15s}
+.tab{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--tx3);padding:11px 18px;cursor:pointer;border-right:1px solid var(--b1);text-transform:uppercase;transition:color .15s,background .15s}
 .tab:hover{color:var(--tx2);background:var(--acc3)}
 .tab.on{color:var(--acc);border-bottom:2px solid var(--acc);background:var(--acc3)}
 .tc{display:none}.tc.on{display:block}
@@ -72,16 +72,16 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 .pcard.lft::before{left:0}.pcard.rgt::before{right:0;left:auto}
 .pcard:hover{background:var(--panel2)}.pcard:hover::before{opacity:1}
 .pc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.pc-n{font-family:var(--font);font-size:10px;font-weight:700;letter-spacing:2px;color:var(--pc)}
-.pc-rk{font-family:var(--mono);font-size:7px;color:var(--tx3);letter-spacing:1px;margin-top:2px}
+.pc-n{font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:2px;color:var(--pc)}
+.pc-rk{font-family:var(--mono);font-size:11px;color:var(--tx3);letter-spacing:1px;margin-top:2px}
 .pc-lv{font-family:var(--font);font-size:26px;font-weight:900;color:var(--pc);line-height:1;text-shadow:0 0 12px currentColor}
-.pc-lvl{font-family:var(--mono);font-size:7px;color:var(--tx3);text-align:right;letter-spacing:1px}
+.pc-lvl{font-family:var(--mono);font-size:11px;color:var(--tx3);text-align:right;letter-spacing:1px}
 .bar{height:3px;background:var(--b1);position:relative;margin:5px 0}
 .bf{height:100%;position:relative}
 .bf::after{content:'';position:absolute;right:-1px;top:-3px;width:2px;height:9px;background:rgba(255,255,255,.8)}
-.pc-xp{display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;color:var(--tx3)}
+.pc-xp{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--tx3)}
 .pc-cats{margin-top:8px;display:flex;flex-direction:column;gap:3px}
-.pc-cat-mini{font-family:var(--mono);font-size:7px;color:var(--tx3);display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.pc-cat-mini{font-family:var(--mono);font-size:11px;color:var(--tx3);display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03)}
 
 /* SCANNER */
 .scanner{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse at center,#060f1e,#040810);overflow:hidden;padding:10px}
@@ -93,7 +93,7 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 
 /* DIVIDER */
 .div-row{border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);padding:7px 20px;background:#050a14;display:flex;align-items:center;gap:10px}
-.div-lbl{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:3px;opacity:.6;white-space:nowrap}
+.div-lbl{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:3px;opacity:.6;white-space:nowrap}
 .div-ln{flex:1;height:1px;background:linear-gradient(90deg,var(--b2),transparent)}
 .div-ln.r{background:linear-gradient(90deg,transparent,var(--b2))}
 
@@ -102,16 +102,16 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 .pass-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px}
 .passive{background:var(--panel);border:1px solid var(--b1);padding:10px 8px 8px;cursor:pointer;transition:border-color .2s,background .2s,transform .15s;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative}
 .passive:hover{border-color:var(--b3);background:var(--panel2);transform:translateY(-2px)}
-.p-icon{font-size:20px;filter:brightness(.8);transition:filter .2s}
+.p-icon{font-size:26px;filter:brightness(.8);transition:filter .2s}
 .passive:hover .p-icon{filter:brightness(1.3)}
-.p-name{font-family:var(--mono);font-size:8px;color:var(--tx2);letter-spacing:1px;text-transform:uppercase;text-align:center;line-height:1.3}
-.p-lv{font-family:var(--font);font-size:10px;font-weight:700;color:var(--tx2)}
-.p-boost{font-family:var(--mono);font-size:7px;color:var(--mindset);letter-spacing:1px}
+.p-name{font-family:var(--mono);font-size:11px;color:var(--tx2);letter-spacing:1px;text-transform:uppercase;text-align:center;line-height:1.3}
+.p-lv{font-family:var(--font);font-size:14px;font-weight:700;color:var(--tx2)}
+.p-boost{font-family:var(--mono);font-size:11px;color:var(--mindset);letter-spacing:1px}
 .p-dots{display:flex;gap:3px;justify-content:center;flex-wrap:wrap}
 .p-dot{width:7px;height:7px;border-radius:1px;opacity:.85}
 
 /* BREADCRUMB NAV */
-.breadcrumb{font-family:var(--mono);font-size:9px;color:var(--tx3);padding:8px 20px;background:#050a14;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.breadcrumb{font-family:var(--mono);font-size:12px;color:var(--tx3);padding:8px 20px;background:#050a14;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .bc-item{cursor:pointer;color:var(--acc);opacity:.7;transition:opacity .15s}
 .bc-item:hover{opacity:1}
 .bc-sep{opacity:.3}
@@ -120,78 +120,81 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 /* DRILL PANEL */
 .drill-hero{padding:14px 20px;background:var(--panel2);border-bottom:1px solid var(--b1)}
 .dh-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.dh-name{font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:2px}
-.dh-type{font-family:var(--mono);font-size:8px;color:var(--tx3);letter-spacing:2px;margin-top:3px;text-transform:uppercase}
-.dh-desc{font-family:var(--mono);font-size:9px;color:var(--tx2);margin-top:6px;line-height:1.6}
+.dh-name{font-family:var(--font);font-size:18px;font-weight:700;letter-spacing:2px}
+.dh-type{font-family:var(--mono);font-size:12px;color:var(--tx3);letter-spacing:2px;margin-top:3px;text-transform:uppercase}
+.dh-desc{font-family:var(--mono);font-size:13px;color:var(--tx2);margin-top:6px;line-height:1.6}
 .dh-lv{font-family:var(--font);font-size:30px;font-weight:900;text-align:right;line-height:1}
-.dh-rk{font-family:var(--mono);font-size:8px;color:var(--tx3);text-align:right;margin-top:2px}
+.dh-rk{font-family:var(--mono);font-size:12px;color:var(--tx3);text-align:right;margin-top:2px}
 
 .drill-children{padding:14px 20px}
-.dc-label{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;opacity:.6}
+.dc-label{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;opacity:.6}
 .child-card{background:var(--panel);border:1px solid var(--b1);padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:background .2s,border-color .2s;position:relative}
 .child-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cc)}
 .child-card:hover{background:var(--panel2);border-color:var(--b2)}
 .cc-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.cc-name{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--tx)}
+.cc-name{font-family:var(--body);font-size:15px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--tx)}
 .cc-lv{font-family:var(--font);font-size:14px;font-weight:700}
-.cc-xp{display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;color:var(--tx3);margin-top:5px}
-.cc-desc{font-family:var(--mono);font-size:9px;color:var(--tx3);margin-top:5px;line-height:1.5}
-.cc-boost{font-family:var(--mono);font-size:8px;color:var(--mindset);margin-top:4px;letter-spacing:1px}
+.cc-xp{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--tx3);margin-top:5px}
+.cc-desc{font-family:var(--mono);font-size:12px;color:var(--tx3);margin-top:5px;line-height:1.5}
+.cc-boost{font-family:var(--mono);font-size:12px;color:var(--mindset);margin-top:4px;letter-spacing:1px}
 
 /* PASSIVE TAGS */
 .passive-tags-section{padding:12px 20px;border-top:1px solid var(--b1)}
-.pt-label{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;opacity:.6}
+.pt-label{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;opacity:.6}
 .pt-grid{display:flex;gap:6px;flex-wrap:wrap}
-.pt-tag{font-family:var(--mono);font-size:8px;padding:4px 10px;border:1px solid var(--b2);color:var(--tx2);cursor:pointer;transition:border-color .15s,color .15s;display:flex;align-items:center;gap:5px}
+.pt-tag{font-family:var(--mono);font-size:12px;padding:6px 12px;border:1px solid var(--b2);color:var(--tx2);cursor:pointer;transition:border-color .15s,color .15s;display:flex;align-items:center;gap:5px}
 .pt-tag:hover{border-color:var(--b3);color:var(--tx)}
 .pt-tag .ptdot{width:6px;height:6px;border-radius:50%}
 
 /* PASSIVE DETAIL */
 .pd-wrap{padding:20px}
 .pd-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--b1)}
-.pd-icon{width:50px;height:50px;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--panel2);border:1px solid var(--b1)}
-.pd-name{font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:2px;color:var(--acc)}
-.pd-meta{font-family:var(--mono);font-size:9px;color:var(--tx3);margin-top:3px;letter-spacing:1px}
-.pd-desc{font-family:var(--body);font-size:14px;color:var(--tx2);line-height:1.7;margin-bottom:14px}
-.pd-section-lbl{font-family:var(--mono);font-size:8px;color:var(--tx3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.pd-icon{width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:34px;background:var(--panel2);border:1px solid var(--b1)}
+.pd-name{font-family:var(--font);font-size:18px;font-weight:700;letter-spacing:2px;color:var(--acc)}
+.pd-meta{font-family:var(--mono);font-size:12px;color:var(--tx3);margin-top:3px;letter-spacing:1px}
+.pd-desc{font-family:var(--body);font-size:15px;color:var(--tx2);line-height:1.7;margin-bottom:14px}
+.pd-section-lbl{font-family:var(--mono);font-size:12px;color:var(--tx3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
 .pd-buff-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.pd-bt{font-family:var(--mono);font-size:9px;padding:4px 12px;border:1px solid;letter-spacing:1px}
-.pd-sources{font-family:var(--mono);font-size:9px;color:var(--tx3);line-height:1.8;letter-spacing:1px}
+.pd-bt{font-family:var(--mono);font-size:12px;padding:6px 14px;border:1px solid;letter-spacing:1px}
+.pd-sources{font-family:var(--mono);font-size:13px;color:var(--tx3);line-height:1.8;letter-spacing:1px}
 /* LEAF DETAIL */
 .leaf-hero{padding:14px 20px;background:var(--panel2);border-bottom:1px solid var(--b1)}
 .lh-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.lh-name{font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:2px}
-.lh-type{font-family:var(--mono);font-size:8px;color:var(--tx3);letter-spacing:2px;margin-top:3px;text-transform:uppercase}
-.lh-desc{font-family:var(--mono);font-size:9px;color:var(--tx2);margin-top:6px;line-height:1.6;max-width:500px}
+.lh-name{font-family:var(--font);font-size:18px;font-weight:700;letter-spacing:2px}
+.lh-type{font-family:var(--mono);font-size:12px;color:var(--tx3);letter-spacing:2px;margin-top:3px;text-transform:uppercase}
+.lh-desc{font-family:var(--mono);font-size:13px;color:var(--tx2);margin-top:6px;line-height:1.6;}
 .lh-lv{font-family:var(--font);font-size:30px;font-weight:900;text-align:right;line-height:1}
-.lh-xp{font-family:var(--mono);font-size:8px;color:var(--tx3);text-align:right;margin-top:2px}
+.lh-xp{font-family:var(--mono);font-size:12px;color:var(--tx3);text-align:right;margin-top:2px}
 .leaf-log{padding:14px 20px}
-.ll-label{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;opacity:.6}
-.ll-entry{font-family:var(--mono);font-size:9px;border-left:2px solid var(--b2);padding:5px 10px;margin-bottom:6px;color:var(--tx3);line-height:1.6;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ll-label{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;opacity:.6}
+.ll-entry{font-family:var(--mono);font-size:12px;border-left:2px solid var(--b2);padding:5px 10px;margin-bottom:6px;color:var(--tx3);line-height:1.6;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .ll-entry.fresh{border-color:var(--acc);color:var(--tx2)}
 .ll-entry.milestone{border-color:var(--gold)}
-.ll-xp{color:var(--gold);white-space:nowrap;font-size:10px}
-.ll-date{color:var(--tx3);white-space:nowrap;font-size:8px;opacity:.7}
-.ll-empty{font-family:var(--mono);font-size:9px;color:var(--tx3);letter-spacing:1px;padding:10px 0;opacity:.5}
+.ll-xp{color:var(--gold);white-space:nowrap;font-size:13px}
+.ll-date{color:var(--tx3);white-space:nowrap;font-size:11px;opacity:.7}
+.ll-empty{font-family:var(--mono);font-size:12px;color:var(--tx3);letter-spacing:1px;padding:10px 0;opacity:.5}
 
 
 /* MILESTONES */
 .ms-wrap{padding:14px 20px}
-.ms-slbl{font-family:var(--mono);font-size:8px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;margin-top:12px;opacity:.6}
+.ms-slbl{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;margin-top:12px;opacity:.6}
 .ms-slbl:first-child{margin-top:0}
 .ms{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;background:var(--panel);border:1px solid var(--b1);margin-bottom:5px}
 .ms-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px}
-.ms-txt{font-family:var(--body);font-size:12px;color:var(--tx2);flex:1;line-height:1.4}
-.ms-xp{font-family:var(--mono);font-size:10px;color:var(--gold);white-space:nowrap}
+.ms-txt{font-family:var(--body);font-size:14px;color:var(--tx2);flex:1;line-height:1.4}
+.ms-xp{font-family:var(--mono);font-size:13px;color:var(--gold);white-space:nowrap}
 .ms.pend{opacity:.4}
 
 /* LOG */
 .log-wrap{padding:14px 20px}
-.le{font-family:var(--mono);font-size:9px;border-left:2px solid var(--b2);padding:4px 10px;margin-bottom:7px;color:var(--tx3);line-height:1.6}
+.le{font-family:var(--mono);font-size:12px;border-left:2px solid var(--b2);padding:6px 12px;margin-bottom:8px;color:var(--tx3);line-height:1.8}
+.le-txt{}
+.le-xps{display:inline}
+.lxp{font-size:11px;font-family:var(--mono);letter-spacing:1px}
 .le.fresh{border-color:var(--acc);color:var(--tx2)}
-.le .lxp{color:var(--gold)}
+.le .lxp{font-weight:600}
 
-.hint{font-family:var(--mono);font-size:9px;color:var(--tx3);padding:10px 20px 20px;letter-spacing:1px;line-height:1.8;border-top:1px solid var(--b1)}
+.hint{font-family:var(--mono);font-size:12px;color:var(--tx3);padding:10px 20px 20px;letter-spacing:1px;line-height:1.8;border-top:1px solid var(--b1)}
 @keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 .fi{animation:fi .25s ease forwards}
 
@@ -212,7 +215,7 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
       <span class="chip g">KETO ACTIVE</span>
       <span class="chip b">6 PROJECTS</span>
       <span class="chip y">JOB HUNT</span>
-      <span class="chip b">3 NEW PASSIVES</span>
+      <span class="chip b">PRECISION DRIVE UNLOCKED</span>
       <span class="chip r">DEBT LOAD</span>
       <span class="chip r">SLEEP -2</span>
     </div>
@@ -249,88 +252,20 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
       <div class="scan-ring" style="width:220px;height:220px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:.6s"></div>
       <div class="scan-ring" style="width:140px;height:140px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:1.2s"></div>
       <div class="scan-line"></div>
-      <svg class="scanner-svg" viewBox="0 0 200 360" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="gw"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <filter id="gw2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#00aaff" stop-opacity=".55"/>
-            <stop offset="50%" stop-color="#0055aa" stop-opacity=".28"/>
-            <stop offset="100%" stop-color="#002244" stop-opacity=".38"/>
-          </linearGradient>
-          <linearGradient id="cg" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#00aaff" stop-opacity="0"/>
-            <stop offset="50%" stop-color="#00aaff" stop-opacity=".7"/>
-            <stop offset="100%" stop-color="#00aaff" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <ellipse cx="100" cy="180" rx="88" ry="158" fill="none" stroke="#00aaff" stroke-width=".4" opacity=".12"/>
-        <line x1="15" y1="95" x2="185" y2="95" stroke="url(#cg)" stroke-width=".4" opacity=".35"/>
-        <line x1="15" y1="145" x2="185" y2="145" stroke="url(#cg)" stroke-width=".4" opacity=".28"/>
-        <line x1="15" y1="195" x2="185" y2="195" stroke="url(#cg)" stroke-width=".4" opacity=".35"/>
-        <line x1="15" y1="245" x2="185" y2="245" stroke="url(#cg)" stroke-width=".4" opacity=".28"/>
-        <line x1="15" y1="290" x2="185" y2="290" stroke="url(#cg)" stroke-width=".4" opacity=".2"/>
-        <!-- Head -->
-        <ellipse cx="100" cy="38" rx="20" ry="24" fill="url(#bg)" stroke="#00aaff" stroke-width="1.1" filter="url(#gw)"/>
-        <!-- Neck -->
-        <rect x="94" y="60" width="12" height="12" rx="2" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
-        <!-- Torso -->
-        <path d="M65 72 L135 72 L144 150 L56 150 Z" fill="url(#bg)" stroke="#00aaff" stroke-width="1.1" filter="url(#gw)"/>
-        <!-- L arm -->
-        <path d="M65 72 L44 74 L34 130 L52 134 L56 92" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
-        <path d="M34 130 L28 188 L48 188 L52 134" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
-        <ellipse cx="38" cy="196" rx="9" ry="12" fill="url(#bg)" stroke="#00aaff" stroke-width=".7" filter="url(#gw)"/>
-        <!-- R arm -->
-        <path d="M135 72 L156 74 L166 130 L148 134 L144 92" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
-        <path d="M166 130 L172 188 L152 188 L148 134" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
-        <ellipse cx="162" cy="196" rx="9" ry="12" fill="url(#bg)" stroke="#00aaff" stroke-width=".7" filter="url(#gw)"/>
-        <!-- Pelvis -->
-        <path d="M56 150 L144 150 L148 188 L52 188 Z" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
-        <!-- Thighs -->
-        <path d="M52 188 L70 188 L73 262 L50 262" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
-        <path d="M148 188 L130 188 L127 262 L150 262" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
-        <!-- Shins -->
-        <path d="M50 262 L73 262 L71 330 L52 330" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
-        <path d="M150 262 L127 262 L129 330 L148 330" fill="url(#bg)" stroke="#00aaff" stroke-width=".9" filter="url(#gw)"/>
-        <!-- Feet -->
-        <path d="M48 330 L73 330 L76 348 L45 348 Z" fill="url(#bg)" stroke="#00aaff" stroke-width=".7" filter="url(#gw)"/>
-        <path d="M127 330 L152 330 L155 348 L124 348 Z" fill="url(#bg)" stroke="#00aaff" stroke-width=".7" filter="url(#gw)"/>
-        <!-- Circuit lines -->
-        <line x1="88" y1="80" x2="88" y2="146" stroke="#00ddcc" stroke-width=".5" opacity=".4"/>
-        <line x1="112" y1="80" x2="112" y2="146" stroke="#00ddcc" stroke-width=".5" opacity=".4"/>
-        <line x1="72" y1="108" x2="128" y2="108" stroke="#00ddcc" stroke-width=".5" opacity=".35"/>
-        <line x1="72" y1="126" x2="128" y2="126" stroke="#00ddcc" stroke-width=".5" opacity=".35"/>
-        <!-- Spine -->
-        <line x1="100" y1="72" x2="100" y2="188" stroke="#00aaff" stroke-width=".5" stroke-dasharray="3 3" opacity=".35"/>
-        <!-- Joint nodes -->
-        <circle cx="100" cy="72" r="2.5" fill="#00aaff" filter="url(#gw2)" opacity=".9"/>
-        <circle cx="65" cy="72" r="2" fill="#00aaff" filter="url(#gw2)" opacity=".8"/>
-        <circle cx="135" cy="72" r="2" fill="#00aaff" filter="url(#gw2)" opacity=".8"/>
-        <circle cx="34" cy="130" r="1.8" fill="#00ddcc" filter="url(#gw2)" opacity=".8"/>
-        <circle cx="166" cy="130" r="1.8" fill="#00ddcc" filter="url(#gw2)" opacity=".8"/>
-        <circle cx="100" cy="150" r="2.5" fill="#00aaff" filter="url(#gw2)" opacity=".9"/>
-        <circle cx="62" cy="188" r="1.8" fill="#00aaff" filter="url(#gw2)" opacity=".7"/>
-        <circle cx="138" cy="188" r="1.8" fill="#00aaff" filter="url(#gw2)" opacity=".7"/>
-        <circle cx="62" cy="262" r="1.8" fill="#00ddcc" filter="url(#gw2)" opacity=".7"/>
-        <circle cx="138" cy="262" r="1.8" fill="#00ddcc" filter="url(#gw2)" opacity=".7"/>
-        <!-- Heart -->
-        <circle cx="100" cy="108" r="5" fill="none" stroke="#ff3355" stroke-width=".9" opacity=".7" filter="url(#gw)"/>
-        <circle cx="100" cy="108" r="1.8" fill="#ff3355" opacity=".8" filter="url(#gw2)"/>
-        <!-- Brain -->
-        <circle cx="100" cy="32" r="3.5" fill="none" stroke="#00ddcc" stroke-width=".7" opacity=".6"/>
-        <!-- Labels -->
-        <text x="8" y="98" font-family="'Share Tech Mono'" font-size="5.5" fill="#00aaff" opacity=".5">MIND</text>
-        <text x="8" y="148" font-family="'Share Tech Mono'" font-size="5.5" fill="#00aaff" opacity=".5">CORE</text>
-        <text x="8" y="198" font-family="'Share Tech Mono'" font-size="5.5" fill="#00aaff" opacity=".5">HIP</text>
-        <text x="158" y="98" font-family="'Share Tech Mono'" font-size="5.5" fill="#00aaff" opacity=".5">LV 8</text>
-        <text x="156" y="148" font-family="'Share Tech Mono'" font-size="5.5" fill="#ff3355" opacity=".6">VITAL</text>
-        <text x="153" y="198" font-family="'Share Tech Mono'" font-size="5.5" fill="#00aaff" opacity=".5">116kg</text>
-        <!-- Scan anim -->
-        <rect x="12" y="0" width="176" height="2" fill="url(#cg)" opacity=".45">
-          <animate attributeName="y" from="18" to="340" dur="4s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0;.45;.45;0" dur="4s" repeatCount="indefinite"/>
-        </rect>
-      </svg>
+      <img 
+        src="scanner.png" 
+        alt="body scanner" 
+        class="scanner-img"
+        style="
+          width: 220px;
+          height: auto;
+          position: relative;
+          z-index: 2;
+          mix-blend-mode: screen;
+          filter: brightness(1.1) saturate(1.2);
+          pointer-events: none;
+        "
+      />
     </div>
     <div class="pl-right" id="rightPillars"></div>
   </div>
@@ -415,7 +350,7 @@ const PASSIVES = [
     pillars:['wealth'],
     desc:'Noisesharks CEO 2017-2022. Co-founded and ran a music tech startup. Product thinking, roadmap management, co-founder dynamics — all now feeding Ghost Note.',
     sources:'Earns XP from: product decisions made, features shipped, roadmap work done, lessons from Noisesharks consciously applied.' },
-  { id:'aesthetic', name:'Aesthetic Intel', icon:'🎨', xp:6400,
+  { id:'aesthetic', name:'Aesthetic Intel', icon:'🎨', xp:7000,
     buffs:['Wealth.Music Career.Composition','Wealth.Business.Ghost Note Product','Wealth.Music Career.Prog Metal Production'],
     pillars:['wealth','love'],
     desc:'Exceptionally high taste across music, visuals, and product. Deliberately unique sound. High bar that drives TarekMG uniqueness and Ghost Note product quality equally.',
@@ -440,6 +375,12 @@ const PASSIVES = [
     pillars:['wealth'],
     desc:'Alex Pfeffer mentor relationship. Game dev community contacts from prospecting. Noisesharks and insightsoftware industry connections still active.',
     sources:'Earns XP from: meaningful new connection made, existing relationship deepened, being introduced to someone relevant.' },
+  { id:'precision_drive', name:'Precision Drive', icon:'🎯',
+    xp:5500,
+    buffs:['Wealth.Music Career.Synth & Sound Design','Wealth.Music Career.Composition','Wealth.Business.Ghost Note Product','Health.Fitness.Gym Consistency','Mindset.Self-Mastery.Action on Insight'],
+    pillars:['health','wealth','mindset'],
+    desc:'When the output does not meet the internal standard, Tarek automatically acquires whatever capability is missing to close the gap. Standard-triggered, not need or challenge triggered. The precision mismatch between vision and reality is the activation condition. Distinct from Resourcefulness (constraint-triggered), Discipline (consistency-triggered), Contextual Courage (uncertainty-triggered), and Resilience (adversity-triggered).',
+    sources:'Earns XP from: identifying a specific gap between current output and internal standard, then beginning to acquire the capability to close it. The acquisition must be self-directed and triggered by the standard, not by external instruction. Examples: learning CSS/SASS over a weekend from developer frustration, currently learning aggressive synth and modular synthesis to close the Devastator/Gatchakuta gap, applying enterprise CRM to music prospecting when outreach felt imprecise.' },
   { id:'recovery_skill', name:'Recovery', icon:'🔄', xp:2800,
     buffs:['Health.Recovery.Sleep Quality','Health.Recovery.Rest Days','Health.Mental Health.Emotional Regulation'],
     pillars:['health','mindset'],
@@ -736,21 +677,38 @@ const MILESTONES=[
   {t:'First game credit at any studio',c:'#f0b030',xp:5000,done:false},
 ];
 
+// pillar colours: health=#ff3355 wealth=#f0b030 love=#ff4499 mindset=#00ddcc passive=#ffffff
 const LOG=[
-  {t:'3 new passives added: Contextual Courage, Audience Instinct, Cross-Domain Pattern Recognition',xp:'+500 XP MINDSET + WEALTH',fresh:true},
-  {t:'New leaf stat: Identity Architecture added to Mindset > Self-Mastery',xp:'+200 XP Identity Architecture',fresh:true},
-  {t:'Genre-blending mechanism confirmed: hears genres as problem-solving toolkits not identities',xp:'+80 XP Composition, +150 XP Pattern Recognition',fresh:true},
-  {t:'GitHub pipeline built from scratch in single session — v1 through v5 deployed',xp:'+150 XP Contextual Courage',fresh:true},
-  {t:'Life RPG v4: full hierarchy, maths engine, passive boosts, subcategories',xp:'+500 XP Identity Stability',fresh:true},
-  {t:'Weight logged: 116.5kg (8 May) — 3.5kg down',xp:'+80 XP Weight Progress',fresh:true},
-  {t:'Push/Pull/Legs split locked in',xp:'+200 XP Gym Consistency',fresh:true},
-  {t:'SkyRen demo active — deadline 15 May',xp:'+150 XP Active Pipeline',fresh:false},
-  {t:'Redundancy from Incode — restructured calendar same day',xp:'+300 XP Post-Adversity Recovery',fresh:false},
-  {t:'Creatine + electrolytes added to stack',xp:'+60 XP Supplements & Stack',fresh:false},
-  {t:'Game prospecting funnel built. Rate formalised.',xp:'+200 XP Game Score Strategy',fresh:false},
-  {t:'Alex Pfeffer mentor sessions regular',xp:'+80 XP Professional Network',fresh:false},
-  {t:'Panic attack analysed. Tools internalised.',xp:'+300 XP Panic Recovery',fresh:false},
-  {t:'Incode role landed (Apr 2026)',xp:'+400 XP Job Hunt',fresh:false},
+  {t:'Precision Drive passive identified — standard-triggered skill acquisition. Synth learning (Devastator/Gatchakuta gap) is live example.',
+   xp:[{label:'+300 XP Precision Drive',col:'#ffffff'},{label:'+150 XP Synth & Sound Design',col:'#f0b030'}],fresh:true},
+  {t:'3 new passives confirmed: Contextual Courage, Audience Instinct, Cross-Domain Pattern Recognition',
+   xp:[{label:'+200 XP Contextual Courage',col:'#ffffff'},{label:'+200 XP Audience Instinct',col:'#ffffff'},{label:'+200 XP Cross-Domain Pattern',col:'#ffffff'}],fresh:true},
+  {t:'Identity Architecture — new leaf stat added to Mindset > Self-Mastery',
+   xp:[{label:'+200 XP Identity Architecture',col:'#00ddcc'}],fresh:true},
+  {t:'Genre-blending mechanism confirmed: hears genres as problem-solving toolkits',
+   xp:[{label:'+80 XP Composition',col:'#f0b030'},{label:'+150 XP Cross-Domain Pattern',col:'#ffffff'}],fresh:true},
+  {t:'GitHub pipeline built from scratch — Contextual Courage demonstrated live',
+   xp:[{label:'+150 XP Contextual Courage',col:'#ffffff'}],fresh:true},
+  {t:'Life RPG system built — hierarchy, maths engine, passive boosts deployed',
+   xp:[{label:'+500 XP Identity Stability',col:'#00ddcc'},{label:'+300 XP Systems Thinking',col:'#ffffff'}],fresh:true},
+  {t:'Weight logged: 116.5kg (8 May) — 3.5kg down from start',
+   xp:[{label:'+80 XP Weight Progress',col:'#ff3355'}],fresh:true},
+  {t:'Push/Pull/Legs split locked in — full structured programme',
+   xp:[{label:'+200 XP Gym Consistency',col:'#ff3355'}],fresh:true},
+  {t:'SkyRen demo active — deadline 15 May 2026',
+   xp:[{label:'+150 XP Active Pipeline',col:'#f0b030'}],fresh:false},
+  {t:'Redundancy from Incode — restructured calendar same day',
+   xp:[{label:'+300 XP Post-Adversity Recovery',col:'#00ddcc'},{label:'+100 XP Resilience',col:'#ffffff'}],fresh:false},
+  {t:'Creatine + electrolytes added to stack',
+   xp:[{label:'+60 XP Supplements & Stack',col:'#ff3355'}],fresh:false},
+  {t:'Game prospecting funnel built. Rate $300-400/min formalised.',
+   xp:[{label:'+200 XP Game Score Strategy',col:'#f0b030'},{label:'+80 XP Prospecting',col:'#ffffff'}],fresh:false},
+  {t:'Alex Pfeffer mentor sessions established — regular cadence',
+   xp:[{label:'+80 XP Professional Network',col:'#f0b030'}],fresh:false},
+  {t:'Panic attack survived and fully analysed. Tools internalised.',
+   xp:[{label:'+300 XP Panic Recovery',col:'#ff3355'},{label:'+200 XP Anxiety Tools',col:'#00ddcc'}],fresh:false},
+  {t:'Incode role landed (Apr 2026)',
+   xp:[{label:'+400 XP Job Hunt',col:'#f0b030'}],fresh:false},
 ];
 
 function barHTML(p,color,h=3){
@@ -1038,7 +996,7 @@ function renderMilestones(){
 function renderLog(){
   document.getElementById('logWrap').innerHTML=`
     ${LOG.map(e=>`<div class="le ${e.fresh?'fresh':''}">
-      ${e.t} <span class="lxp"> — ${e.xp}</span>
+      ${e.t} — ${Array.isArray(e.xp)?e.xp.map(x=>`<span class="lxp" style="color:${x.col}">${x.label}</span>`).join(' &nbsp;'):e.xp}
     </div>`).join('')}
     <div style="font-family:var(--mono);font-size:9px;color:var(--tx3);margin-top:12px;letter-spacing:1px;line-height:1.8">
       ⟩ XP ENTERS ONLY AT LEAF STATS — PARENTS ALWAYS DERIVED<br>

@@ -1441,22 +1441,20 @@ function renderLog(){
     return fullMap[stat]||pillarMap[stat.split('_')[0]]||'#6a90b8';
   }
 
-  document.getElementById('logWrap').innerHTML=grouped.length?`
-    ${grouped.map(e=>`<div class="le">
-      ${e.desc} <span class="le-date"> — ${e.date} — </span>
-      ${e.xpLabels.map(x=>{
+  const footer='<div style="font-family:var(--mono);font-size:9px;color:var(--tx3);margin-top:12px;letter-spacing:1px;line-height:1.8">⟩ XP ENTERS ONLY AT LEAF STATS — PARENTS ALWAYS DERIVED<br>⟩ PASSIVE BOOSTS APPLIED AT LEAF LEVEL BEFORE FLOWING UPWARD<br>⟩ NOTION IS THE SOURCE OF TRUTH — SYNC VIA CLAUDE CODE</div>';
+
+  if(grouped.length){
+    document.getElementById('logWrap').innerHTML=grouped.map(e=>{
+      const xpHtml=e.xpLabels.map(x=>{
         const col=xpColour(x.stat);
         const label='+'+x.xp+' XP '+(x.stat.startsWith('passive:')?x.stat.replace('passive:','').replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase()):x.stat.replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase()));
-        return`<span class="lxp" style="color:${col};cursor:pointer;text-decoration:underline dotted" onclick="logLabelClick('${label}')">${label}</span>`;
-      }).join(' &nbsp;')}
-    </div>`).join('')}
-  `:'<div class="ll-empty" style="font-family:var(--mono);font-size:12px;color:var(--tx3);padding:20px">No XP events logged yet beyond founding entries.</div>';
-    <div style="font-family:var(--mono);font-size:9px;color:var(--tx3);margin-top:12px;letter-spacing:1px;line-height:1.8">
-      ⟩ XP ENTERS ONLY AT LEAF STATS — PARENTS ALWAYS DERIVED<br>
-      ⟩ PASSIVE BOOSTS APPLIED AT LEAF LEVEL BEFORE FLOWING UPWARD<br>
-      ⟩ NOTION IS THE SOURCE OF TRUTH — REFRESH TO SYNC
-    </div>
-  `;
+        return '<span class="lxp" style="color:'+col+';cursor:pointer;text-decoration:underline dotted" onclick="logLabelClick(''+label+'')">'+label+'</span>';
+      }).join(' &nbsp;');
+      return '<div class="le">'+e.desc+' <span class="le-date"> — '+e.date+' — </span> '+xpHtml+'</div>';
+    }).join('')+footer;
+  } else {
+    document.getElementById('logWrap').innerHTML='<div class="ll-empty" style="font-family:var(--mono);font-size:12px;color:var(--tx3);padding:20px">No XP events logged yet beyond founding entries.</div>'+footer;
+  }
 }
 
 

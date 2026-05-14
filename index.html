@@ -1250,19 +1250,31 @@ function renderDrill(){
       const sxp=calcSubcategoryXP(p.id,cat.id,s);
       const slv=lvl(sxp,THRESHOLDS.leaf);
       html+=drillHero(s.name,'LEAF STAT',s.desc,slv,sxp,THRESHOLDS.leaf,p.hex,cat.name);
-      // XP log for this leaf
-      const logs=(XP_LOGS[s.id]||[]);
-      if(logs.length){
-        html+=`<div class="leaf-log">
-          <div class="ll-label">XP EVENT LOG</div>
-          ${logs.map(e=>`<div class="ll-entry ${e.fresh?'fresh':''}">
-            <span class="ll-date">${e.date}</span>
-            <span>${e.text}</span>
-            <span class="ll-xp">+${e.xp} XP</span>
-          </div>`).join('')}
-        </div>`;
+      // XP log for this leaf — read from xp-log.json events
+      const allEvents = window._xpEvents || XP_EVENTS_FALLBACK;
+      const lastSync = window._fetchedLog && window._fetchedLog.meta && window._fetchedLog.meta.prev_sync
+        ? new Date(window._fetchedLog.meta.prev_sync) : null;
+      // Match events to this leaf using STAT_ID_MAP
+      const leafFullId = STAT_ID_MAP[s.id] || s.id;
+      const leafEvents = allEvents.filter(e=>
+        e.stat === leafFullId && e.label !== 'FOUNDING'
+      ).map(e=>({
+        ...e,
+        fresh: lastSync ? new Date(e.date+'T23:59:59') > lastSync : false
+      })).reverse();
+      if(leafEvents.length){
+        html+='<div class="leaf-log"><div class="ll-label">XP EVENT LOG</div>'+
+          leafEvents.map(e=>{
+            const desc = e.description || e.stat.replace(/_/g,' ');
+            return '<div class="ll-entry '+(e.fresh?'fresh':'')+'">'+
+              '<span class="ll-date">'+e.date+'</span>'+
+              '<span>'+desc+'</span>'+
+              '<span class="ll-xp">+'+e.xp+' XP</span>'+
+            '</div>';
+          }).join('')+
+        '</div>';
       } else {
-        html+=`<div class="leaf-log"><div class="ll-empty">No XP events logged yet.</div></div>`;
+        html+='<div class="leaf-log"><div class="ll-empty">No XP events logged yet for this stat.</div></div>';
       }
       html+=passiveTagsSection(getPassivesForNode(p.id,cat.id,s.id),'PASSIVES BUFFING THIS STAT');
     }
@@ -1520,7 +1532,15 @@ function drillToLeaf(pillarId,catId,subId){
   `;
 
   // Get logs for this leaf
-  const logs=LOG_BY_LEAF[subId]||[];
+  // Read leaf log from xp-log.json events
+  const allEvts2 = window._xpEvents || XP_EVENTS_FALLBACK;
+  const leafFId2 = STAT_ID_MAP[subId] || subId;
+  const lastSyncDt2 = window._fetchedLog && window._fetchedLog.meta && window._fetchedLog.meta.prev_sync
+    ? new Date(window._fetchedLog.meta.prev_sync) : null;
+  const logs = allEvts2.filter(e=>e.stat===leafFId2 && e.label!=='FOUNDING')
+    .map(e=>({date:e.date, text:e.description||e.stat.replace(/_/g,' '), xp:e.xp,
+      fresh: lastSyncDt2 ? new Date(e.date+'T23:59:59') > lastSyncDt2 : false}))
+    .reverse();
 
   // Build passives section
   const PASSIVE_PTS='114.06 7.3 77.98 7.3 77.98 .5 .5 .5 .5 167.59 104.89 167.59 141.27 128.41 141.27 34.51 114.06 7.3';

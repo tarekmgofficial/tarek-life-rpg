@@ -62,7 +62,85 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 .tc{display:none}.tc.on{display:block}
 
 /* OVERVIEW LAYOUT */
-.ov-layout{display:grid;grid-template-columns:1fr 260px 1fr;min-height:400px;border-bottom:1px solid var(--b1)}
+.ov-layout{display:grid;grid-template-columns:1fr 240px 1fr;min-height:400px;border-bottom:1px solid var(--b1)}
+.pl-left{display:flex;flex-direction:column;border-right:1px solid var(--b1)}
+.pl-right{display:flex;flex-direction:column;border-left:1px solid var(--b1)}
+.pcard{flex:1;padding:14px 16px;cursor:pointer;position:relative;border-bottom:1px solid var(--b1);transition:background .2s;background:var(--panel);overflow:hidden;min-height:120px}
+.pcard:last-child{border-bottom:none}
+.pcard::before{content:'';position:absolute;top:0;bottom:0;width:3px;background:var(--pc);opacity:0;transition:opacity .2s}
+.pcard.lft::before{left:0}.pcard.rgt::before{right:0;left:auto}
+.pcard:hover{background:var(--panel2)}.pcard:hover::before{opacity:1}
+.pc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.pc-n{font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:2px;color:var(--pc)}
+.pc-rk{font-family:var(--mono);font-size:11px;color:var(--tx3);letter-spacing:1px}
+.pc-lvl{font-family:var(--mono);font-size:11px;color:var(--tx3);text-align:right}
+.pc-lv{font-family:var(--font);font-size:28px;font-weight:700;color:var(--pc);text-align:right;line-height:1}
+.pc-xp{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--tx3);margin-top:4px}
+.pc-cat-mini{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--tx2);padding:1px 0}
+.pc-cats{margin-top:4px}ang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAREK // LIFE RPG SYSTEM</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
+:root{
+  --bg:#04060d;--bg2:#070c16;--panel:#080e1a;--panel2:#0c1424;
+  --b1:#0d1f3a;--b2:#1a3a6a;--b3:#2a5a9a;
+  --acc:#00aaff;--acc2:#0066cc;--acc3:rgba(0,170,255,0.08);--accg:rgba(0,170,255,0.25);
+  --gold:#f0b030;--gold2:#c07800;
+  --tx:#c8dff0;--tx2:#6a90b8;--tx3:#2a4a6a;
+  --health:#ff3355;--wealth:#f0b030;--love:#ff4499;--mindset:#00ddcc;
+  --font:'Orbitron',monospace;--mono:'Share Tech Mono',monospace;--body:'Rajdhani',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:var(--body);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px);pointer-events:none;z-index:1000}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,100,200,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,100,200,0.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;width:100%;padding:0 0 60px}
+
+/* HEADER */
+.hdr{background:#060c18;border-bottom:1px solid var(--b2);padding:14px 20px;display:flex;align-items:center;gap:16px;position:relative}
+.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--acc),transparent);opacity:0.5}
+.av{width:56px;height:56px;border-radius:50%;border:2px solid var(--acc);background:radial-gradient(circle,#0a2040,#040810);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 20px var(--accg);animation:avp 3s ease-in-out infinite}
+@keyframes avp{0%,100%{box-shadow:0 0 20px var(--accg)}50%{box-shadow:0 0 35px var(--accg)}}
+.av-t{font-family:var(--mono);font-size:15px;color:var(--acc);letter-spacing:2px}
+.pi{flex:1}
+.pn{font-family:var(--font);font-size:22px;font-weight:700;letter-spacing:3px;color:#fff;text-shadow:0 0 15px var(--accg)}
+.pt{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:2px;margin-top:2px;opacity:.8}
+.buffs{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:11px;padding:3px 10px;letter-spacing:1px}
+.chip.g{border:1px solid var(--mindset);color:var(--mindset);background:rgba(0,221,204,.06)}
+.chip.b{border:1px solid var(--acc);color:var(--acc);background:rgba(0,170,255,.06)}
+.chip.r{border:1px solid var(--health);color:var(--health);background:rgba(255,51,85,.06)}
+.chip.y{border:1px solid var(--gold);color:var(--gold);background:rgba(240,176,48,.06)}
+.glv{text-align:center;background:#08142a;border:1px solid var(--acc);padding:8px 18px;position:relative;box-shadow:0 0 15px rgba(0,170,255,.12)}
+.glv::before{content:'GLOBAL RANK';position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:2px;background:#060c18;padding:0 5px;white-space:nowrap}
+.glvn{font-family:var(--font);font-size:38px;font-weight:900;color:var(--gold);line-height:1;text-shadow:0 0 15px rgba(240,176,48,.4)}
+.glvl{font-family:var(--mono);font-size:12px;color:var(--tx3);letter-spacing:2px;margin-top:1px}
+
+/* MATH VERIFY */
+.math-bar{font-family:var(--mono);font-size:12px;padding:5px 20px;border-bottom:1px solid var(--b1);letter-spacing:2px;display:flex;align-items:center;gap:8px}
+.math-ok{color:var(--mindset)}
+.math-err{color:var(--health)}
+
+/* GLOBAL XP */
+.gxp{background:#050a14;border-bottom:1px solid var(--b1);padding:8px 20px;display:flex;align-items:center;gap:14px}
+.gxp-lbl{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:2px;white-space:nowrap;opacity:.7}
+.gxp-tr{flex:1;height:5px;background:var(--b1);position:relative}
+.gxp-f{height:100%;background:linear-gradient(90deg,var(--acc2),var(--acc));position:relative;transition:width 1s}
+.gxp-f::after{content:'';position:absolute;right:-1px;top:-3px;width:2px;height:11px;background:#fff;opacity:.9}
+.gxp-n{font-family:var(--mono);font-size:12px;color:var(--tx3);white-space:nowrap}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--b1);background:#050a14}
+.tab{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--tx3);padding:11px 18px;cursor:pointer;border-right:1px solid var(--b1);text-transform:uppercase;transition:color .15s,background .15s}
+.tab:hover{color:var(--tx2);background:var(--acc3)}
+.tab.on{color:var(--acc);border-bottom:2px solid var(--acc);background:var(--acc3)}
+.tc{display:none}.tc.on{display:block}
+
+/* OVERVIEW LAYOUT */
+.ov-layout{display:grid;grid-template-columns:1fr 240px 1fr;min-height:400px;border-bottom:1px solid var(--b1)}
 .pl-left{display:flex;flex-direction:column;border-right:1px solid var(--b1)}
 .pl-right{display:flex;flex-direction:column;border-left:1px solid var(--b1)}
 
@@ -84,7 +162,7 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 .pc-cat-mini{font-family:var(--mono);font-size:11px;color:var(--tx3);display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03)}
 
 /* SCANNER */
-.scanner{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse at center,#060f1e,#040810);overflow:hidden;padding:10px}
+.scanner{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:transparent;overflow:hidden;padding:0}
 .scan-ring{position:absolute;border-radius:50%;border:1px solid rgba(0,170,255,.12);animation:srp 3s ease-in-out infinite}
 @keyframes srp{0%,100%{opacity:.12;transform:scale(1)}50%{opacity:.35;transform:scale(1.02)}}
 .scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,170,255,.35),transparent);animation:slm 4s linear infinite}
@@ -99,7 +177,22 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 
 /* PASSIVES */
 .pass-wrap{padding:14px 18px}
-.pass-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px}
+.pass-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,130px));gap:10px}
+.passive{position:relative;cursor:pointer;background:none;border:none;padding:0;max-width:130px;outline:none;box-shadow:none}
+
+.passive-svg{width:100%;height:auto;display:block}
+.passive:hover .p-poly{stroke:var(--acc);filter:drop-shadow(0 0 4px var(--acc))}
+.p-poly{transition:stroke .2s}
+.passive-svg polygon{transition:stroke .2s}
+
+.passive-content{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:stretch;pointer-events:none}
+.passive-bars{display:flex;flex-direction:column;gap:0;padding:6px 6px;align-items:stretch;width:16px;flex-shrink:0}
+.passive-bar{flex:1;border-radius:0;min-width:6px}
+.passive-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 6px 6px 4px;gap:3px}
+.p-icon{font-size:24px;line-height:1}
+.p-name{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--tx2);text-align:center;line-height:1.3}
+.p-lv{font-family:var(--font);font-size:13px;font-weight:700;color:var(--acc)}
+.p-boost{font-family:var(--mono);font-size:10px;color:var(--tx3)}
 .passive{background:var(--panel);border:1px solid var(--b1);padding:10px 8px 8px;cursor:pointer;transition:border-color .2s,background .2s,transform .15s;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative}
 .passive:hover{border-color:var(--b3);background:var(--panel2);transform:translateY(-2px)}
 .p-icon{font-size:26px;filter:brightness(.8);transition:filter .2s}
@@ -142,7 +235,7 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 .passive-tags-section{padding:12px 20px;border-top:1px solid var(--b1)}
 .pt-label{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;opacity:.6}
 .pt-grid{display:flex;gap:6px;flex-wrap:wrap}
-.pt-tag{font-family:var(--mono);font-size:12px;padding:6px 12px;border:1px solid var(--b2);color:var(--tx2);cursor:pointer;transition:border-color .15s,color .15s;display:flex;align-items:center;gap:5px}
+.pt-tag{font-family:var(--mono);font-size:13px;padding:6px 14px;border:1px solid var(--b2);color:var(--tx2);cursor:pointer;transition:border-color .15s,color .15s;display:flex;align-items:center;gap:5px}
 .pt-tag:hover{border-color:var(--b3);color:var(--tx)}
 .pt-tag .ptdot{width:6px;height:6px;border-radius:50%}
 
@@ -151,12 +244,12 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 .pd-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--b1)}
 .pd-icon{width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:34px;background:var(--panel2);border:1px solid var(--b1)}
 .pd-name{font-family:var(--font);font-size:18px;font-weight:700;letter-spacing:2px;color:var(--acc)}
-.pd-meta{font-family:var(--mono);font-size:12px;color:var(--tx3);margin-top:3px;letter-spacing:1px}
-.pd-desc{font-family:var(--body);font-size:15px;color:var(--tx2);line-height:1.7;margin-bottom:14px}
-.pd-section-lbl{font-family:var(--mono);font-size:12px;color:var(--tx3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.pd-meta{font-family:var(--mono);font-size:13px;color:var(--tx3);margin-top:3px;letter-spacing:1px}
+.pd-desc{font-family:var(--body);font-size:15px;color:var(--tx2);color:var(--tx2);line-height:1.7;margin-bottom:14px}
+.pd-section-lbl{font-family:var(--mono);font-size:13px;color:var(--tx3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
 .pd-buff-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.pd-bt{font-family:var(--mono);font-size:12px;padding:6px 14px;border:1px solid;letter-spacing:1px}
-.pd-sources{font-family:var(--mono);font-size:13px;color:var(--tx3);line-height:1.8;letter-spacing:1px}
+.pd-bt{font-family:var(--mono);font-size:13px;padding:6px 14px;border:1px solid;letter-spacing:1px}
+.pd-sources{font-family:var(--mono);font-size:14px;color:var(--tx3);line-height:1.8;letter-spacing:1px}
 /* LEAF DETAIL */
 .leaf-hero{padding:14px 20px;background:var(--panel2);border-bottom:1px solid var(--b1)}
 .lh-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
@@ -261,8 +354,6 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
           height: auto;
           position: relative;
           z-index: 2;
-          mix-blend-mode: screen;
-          filter: brightness(1.1) saturate(1.2);
           pointer-events: none;
         "
       />
@@ -577,23 +668,42 @@ function verifyMaths(){
 }
 
 function getPassivesForNode(pillarId,catId,subId){
+  // Buff format: "PillarName.CategoryName.LeafStatName"
+  // Match pillar by name, category by name, leaf by name
+  const pillar=PILLARS.find(x=>x.id===pillarId);
+  if(!pillar) return [];
+  const cat=catId?pillar.categories.find(x=>x.id===catId):null;
+  const sub=subId&&cat?cat.subcategories.find(x=>x.id===subId):null;
+
   return PASSIVES.filter(p=>{
-    return p.buffs.some(b=>{
+    // Also include passives that list this pillar in their pillars array
+    const hasPillar=p.pillars.includes(pillarId);
+    const hasDirectBuff=p.buffs.some(b=>{
       const parts=b.split('.');
-      if(!parts.length) return false;
-      const pillar=PILLARS.find(x=>x.id===pillarId);
-      if(!pillar) return false;
-      if(subId){
-        const cat=pillar.categories.find(x=>x.id===catId);
-        const sub=cat?.subcategories.find(x=>x.id===subId);
-        return sub&&(b.includes(sub.name)||b.includes(cat?.name||''));
+      const bPillar=parts[0]||'';
+      const bCat=parts[1]||'';
+      const bLeaf=parts[2]||'';
+      // Pillar name match (fuzzy — buff pillar name vs pillar.name)
+      const pillarMatch=pillar.name.toLowerCase().includes(bPillar.toLowerCase())||
+                        bPillar.toLowerCase().includes(pillar.name.toLowerCase().split(' ')[0]);
+      if(!pillarMatch) return false;
+      if(!catId) return true; // pillar level — any matching pillar buff counts
+      // Category level — check category name
+      if(cat){
+        const catMatch=cat.name.toLowerCase().includes(bCat.toLowerCase())||
+                       bCat.toLowerCase().includes(cat.name.toLowerCase().split(' ')[0]);
+        if(!catMatch) return false;
+        if(!subId) return true; // category level match
+        // Leaf level
+        if(sub){
+          return sub.name.toLowerCase().includes(bLeaf.toLowerCase())||
+                 bLeaf.toLowerCase().includes(sub.name.toLowerCase().split(' ')[0]);
+        }
       }
-      if(catId){
-        const cat=pillar.categories.find(x=>x.id===catId);
-        return cat&&b.includes(cat.name);
-      }
-      return p.pillars.includes(pillarId);
+      return false;
     });
+    if(!catId) return hasPillar||hasDirectBuff;
+    return hasDirectBuff;
   });
 }
 
@@ -742,22 +852,38 @@ function init(){
   renderDrill();
 }
 
+// SVG polygon points for each pillar card position
+const CARD_SHAPES = {
+  'top-left':    '522.86 221.74 .5 221.74 .5 44.61 26.22 19.69 98.62 19.69 112.82 .5 610.14 .5 610.14 135.2 522.86 221.74',
+  'bottom-left': '522.86 .5 .5 .5 .5 177.63 26.22 202.54 98.62 202.54 112.82 221.74 610.14 221.74 610.14 87.04 522.86 .5',
+  'top-right':   '87.78 221.74 610.14 221.74 610.14 44.61 584.42 19.69 512.02 19.69 497.82 .5 .5 .5 .5 135.2 87.78 221.74',
+  'bottom-right':'87.78 .5 610.14 .5 610.14 177.63 584.42 202.54 512.02 202.54 497.82 221.74 .5 221.74 .5 87.04 87.78 .5',
+};
+
+const PILLAR_POSITIONS = {
+  'health': 'top-left',
+  'wealth': 'bottom-left',
+  'love':   'top-right',
+  'mindset':'bottom-right',
+};
+
 function renderOverview(){
   const leftPillars=document.getElementById('leftPillars');
   const rightPillars=document.getElementById('rightPillars');
   const left=['health','wealth'];
   const right=['love','mindset'];
 
-  function pillarCard(p,side){
+  function pillarCard(p){
     const xp=calcPillarXP(p);
     const lv=lvl(xp,THRESHOLDS.pillar);
     const pc=pct(xp,THRESHOLDS.pillar);
-    const cats=p.categories.map(c=>{
-      const cxp=calcCategoryXP(p.id,c);
+    const side=(['health','wealth'].includes(p.id))?'left':'right';
+    const cats=p.categories.map(cat=>{
+      const cxp=calcCategoryXP(p.id,cat);
       const clv=lvl(cxp,THRESHOLDS.cat);
-      return`<div class="pc-cat-mini"><span>${c.name}</span><span style="color:${p.hex}">LV${clv}</span></div>`;
+      return`<div class="pc-cat-mini"><span>${cat.name}</span><span style="color:${p.hex}">LV${clv}</span></div>`;
     }).join('');
-    return`<div class="pcard ${side==='left'?'lft':'rgt'}" style="--pc:${p.color}" onclick="drillTo('pillar','${p.id}')">
+    return`<div class="pcard ${side==='left'?'lft':'rgt'}" style="--pc:${p.hex}" onclick="drillTo('pillar','${p.id}')">
       <div class="pc-head">
         <div><div class="pc-n">${p.name}</div><div class="pc-rk">${p.rank}</div></div>
         <div><div class="pc-lvl">LV</div><div class="pc-lv">${lv}</div></div>
@@ -767,32 +893,40 @@ function renderOverview(){
       <div class="pc-cats">${cats}</div>
     </div>`;
   }
-
-  leftPillars.innerHTML=left.map(id=>{
+    leftPillars.innerHTML=left.map(id=>{
     const p=PILLARS.find(x=>x.id===id);
-    return pillarCard(p,'left');
+    return pillarCard(p);
   }).join('');
   rightPillars.innerHTML=right.map(id=>{
     const p=PILLARS.find(x=>x.id===id);
-    return pillarCard(p,'right');
+    return pillarCard(p);
   }).join('');
 }
 
 function renderPassives(){
   const grid=document.getElementById('passGrid');
+  const PASSIVE_PTS='114.06 7.3 77.98 7.3 77.98 .5 .5 .5 .5 167.59 104.89 167.59 141.27 128.41 141.27 34.51 114.06 7.3';
   grid.innerHTML=PASSIVES.map(p=>{
     const lv=getPassiveLevel(p);
     const boost=(getPassiveBoost(p)*100).toFixed(1);
-    const dots=p.pillars.map(pid=>{
+    // Left edge bars — one per pillar, full height, pillar colour
+    const bars=p.pillars.map(pid=>{
       const pl=PILLARS.find(x=>x.id===pid);
-      return`<div class="p-dot" style="background:${pl?.hex||'#888'}"></div>`;
+      return`<div class="passive-bar" style="background:${pl?.hex||'#888'}"></div>`;
     }).join('');
     return`<div class="passive" onclick="showPassive('${p.id}')">
-      <div class="p-icon">${p.icon}</div>
-      <div class="p-name">${p.name}</div>
-      <div class="p-lv">LV ${lv}</div>
-      <div class="p-boost">+${boost}% boost</div>
-      <div class="p-dots">${dots}</div>
+      <svg class="passive-svg" viewBox="0 0 141.77 168.09" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="p-poly" points="${PASSIVE_PTS}" style="fill:#0e1424;stroke:#365998;stroke-width:1;stroke-miterlimit:10"/>
+      </svg>
+      <div class="passive-content">
+        <div class="passive-bars">${bars}</div>
+        <div class="passive-inner">
+          <div class="p-icon">${p.icon}</div>
+          <div class="p-name">${p.name}</div>
+          <div class="p-lv">LV${lv}</div>
+          <div class="p-boost">+${boost}%</div>
+        </div>
+      </div>
     </div>`;
   }).join('');
 }
@@ -885,6 +1019,31 @@ function renderDrill(){
     });
     html+='</div>';
     html+=passiveTagsSection(getPassivesForNode(p.id,c.id,null),'PASSIVES BUFFING THIS CATEGORY');
+
+  } else if(current.type==='leaf'){
+    const p=PILLARS.find(x=>x.id===current.pillarId);
+    const cat=p?.categories.find(x=>x.id===current.catId);
+    const s=cat?.subcategories.find(x=>x.id===current.id);
+    if(p&&cat&&s){
+      const sxp=calcSubcategoryXP(p.id,cat.id,s);
+      const slv=lvl(sxp,THRESHOLDS.leaf);
+      html+=drillHero(s.name,'LEAF STAT',s.desc,slv,sxp,THRESHOLDS.leaf,p.hex,cat.name);
+      // XP log for this leaf
+      const logs=(XP_LOGS[s.id]||[]);
+      if(logs.length){
+        html+=`<div class="leaf-log">
+          <div class="ll-label">XP EVENT LOG</div>
+          ${logs.map(e=>`<div class="ll-entry ${e.fresh?'fresh':''}">
+            <span class="ll-date">${e.date}</span>
+            <span>${e.text}</span>
+            <span class="ll-xp">+${e.xp} XP</span>
+          </div>`).join('')}
+        </div>`;
+      } else {
+        html+=`<div class="leaf-log"><div class="ll-empty">No XP events logged yet.</div></div>`;
+      }
+      html+=passiveTagsSection(getPassivesForNode(p.id,cat.id,s.id),'PASSIVES BUFFING THIS STAT');
+    }
   }
 
   content.innerHTML=html;
@@ -927,18 +1086,32 @@ function childCard(name,type,desc,lv,xp,threshold,hex,pc,onclick,extra=''){
 
 function passiveTagsSection(passives,label){
   if(!passives.length) return'';
-  const tags=passives.map(p=>{
+  const PASSIVE_PTS='114.06 7.3 77.98 7.3 77.98 .5 .5 .5 .5 167.59 104.89 167.59 141.27 128.41 141.27 34.51 114.06 7.3';
+  const cards=passives.map(p=>{
     const lv=getPassiveLevel(p);
     const boost=(getPassiveBoost(p)*100).toFixed(1);
-    const dots=p.pillars.map(pid=>{
+    const bars=p.pillars.map(pid=>{
       const pl=PILLARS.find(x=>x.id===pid);
-      return`<div class="ptdot" style="background:${pl?.hex||'#888'}"></div>`;
+      return`<div class="passive-bar" style="background:${pl?.hex||'#888'}"></div>`;
     }).join('');
-    return`<div class="pt-tag" onclick="showPassive('${p.id}')"><span>${p.icon}</span>${p.name} LV${lv} (+${boost}%)<span style="display:flex;gap:3px">${dots}</span></div>`;
+    return`<div class="passive" onclick="showPassive('${p.id}')">
+      <svg class="passive-svg" viewBox="0 0 141.77 168.09" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="p-poly" points="${PASSIVE_PTS}" style="fill:#0e1424;stroke:#365998;stroke-width:1;stroke-miterlimit:10"/>
+      </svg>
+      <div class="passive-content">
+        <div class="passive-bars">${bars}</div>
+        <div class="passive-inner">
+          <div class="p-icon">${p.icon}</div>
+          <div class="p-name">${p.name}</div>
+          <div class="p-lv">LV${lv}</div>
+          <div class="p-boost">+${boost}%</div>
+        </div>
+      </div>
+    </div>`;
   }).join('');
   return`<div class="passive-tags-section">
-    <div class="pt-label">${label}</div>
-    <div class="pt-grid">${tags}</div>
+    <div class="dc-label">${label}</div>
+    <div class="pass-grid">${cards}</div>
   </div>`;
 }
 
@@ -1017,7 +1190,14 @@ function drillToLeaf(pillarId,catId,subId){
   const slv=lvl(sxp,THRESHOLDS.leaf);
   const spc=pct(sxp,THRESHOLDS.leaf);
   const boost=sxp-s.xp;
-  const leafPassives=PASSIVES.filter(pass=>pass.buffs.some(b=>b.includes(s.name)||b.includes(c.name)));
+  const leafPassives=PASSIVES.filter(pass=>pass.buffs.some(b=>{
+    const parts=b.split('.');
+    const bCat=(parts[1]||'').toLowerCase();
+    const bLeaf=(parts[2]||'').toLowerCase();
+    const catMatch=c.name.toLowerCase().includes(bCat)||bCat.includes(c.name.toLowerCase().split(' ')[0]);
+    const leafMatch=s.name.toLowerCase().includes(bLeaf)||bLeaf.includes(s.name.toLowerCase().split(' ')[0]);
+    return catMatch&&leafMatch;
+  }));
 
   // Breadcrumb
   document.getElementById('leafBreadcrumb').innerHTML=`
@@ -1034,10 +1214,28 @@ function drillToLeaf(pillarId,catId,subId){
   const logs=LOG_BY_LEAF[subId]||[];
 
   // Build passives section
+  const PASSIVE_PTS='114.06 7.3 77.98 7.3 77.98 .5 .5 .5 .5 167.59 104.89 167.59 141.27 128.41 141.27 34.51 114.06 7.3';
   const passiveTags=leafPassives.length?leafPassives.map(pass=>{
     const plv=getPassiveLevel(pass);
     const pb=(getPassiveBoost(pass)*100).toFixed(1);
-    return`<div class="pt-tag" onclick="showPassive('${pass.id}')"><span>${pass.icon}</span>${pass.name} LV${plv} (+${pb}%)</div>`;
+    const bars=pass.pillars.map(pid=>{
+      const pl=PILLARS.find(x=>x.id===pid);
+      return`<div class="passive-bar" style="background:${pl?.hex||'#888'}"></div>`;
+    }).join('');
+    return`<div class="passive" onclick="showPassive('${pass.id}')">
+      <svg class="passive-svg" viewBox="0 0 141.77 168.09" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="p-poly" points="${PASSIVE_PTS}" style="fill:#0e1424;stroke:#365998;stroke-width:1;stroke-miterlimit:10"/>
+      </svg>
+      <div class="passive-content">
+        <div class="passive-bars">${bars}</div>
+        <div class="passive-inner">
+          <div class="p-icon">${pass.icon}</div>
+          <div class="p-name">${pass.name}</div>
+          <div class="p-lv">LV${plv}</div>
+          <div class="p-boost">+${pb}%</div>
+        </div>
+      </div>
+    </div>`;
   }).join(''):'<div class="ll-empty">No passives currently buffing this stat</div>';
 
   document.getElementById('leafContent').innerHTML=`

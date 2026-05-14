@@ -1025,6 +1025,7 @@ async function init(){
 
   // Fetch from xp-log.json, fall back to embedded data if unavailable
   const events = await fetchXPLog();
+  window._xpEvents = events; // store for renderLog
   const {leafTotals,passiveTotals}=computeXPTotals(events);
   applyXPTotals(leafTotals,passiveTotals);
 
@@ -1393,10 +1394,63 @@ function logLabelClick(label){
 }
 
 function renderLog(){
-  document.getElementById('logWrap').innerHTML=`
-    ${LOG.map(e=>`<div class="le ${e.fresh?'fresh':''}">
-      ${e.t} ${e.date?`<span class="le-date"> — ${e.date} — </span>`:'— '} ${Array.isArray(e.xp)?e.xp.map(x=>`<span class="lxp" style="color:${x.col};cursor:pointer;text-decoration:underline dotted" onclick="logLabelClick('${x.label}')">${x.label}</span>`).join(' &nbsp;'):e.xp}
+  // Render from fetched XP events (xp-log.json) — same source as maths engine
+  const events = window._xpEvents || XP_EVENTS_FALLBACK;
+  // Filter out FOUNDING, SYNC entries for display — show real events only
+  // Group by date+description for display
+  const displayEvents = events
+    .filter(e=>e.label!=='FOUNDING' && e.stat!=='site updated' && e.stat!=='SYNC')
+    .reverse(); // newest first
+
+  // Group entries by description — combine XP labels for same event
+  const grouped = [];
+  displayEvents.forEach(e=>{
+    const desc = e.description || e.stat;
+    const last = grouped[grouped.length-1];
+    if(last && last.desc===desc && last.date===e.date){
+      last.xpLabels.push({stat:e.stat, xp:e.xp});
+    } else {
+      grouped.push({desc, date:e.date, xpLabels:[{stat:e.stat, xp:e.xp}]});
+    }
+  });
+
+  function xpColour(stat){
+    if(stat.startsWith('passive:')) return '#ffffff';
+    const pillarMap = {
+      weight:'#ff3355',gym:'#ff3355',cardio:'#ff3355',strength:'#ff3355',
+      keto:'#ff3355',supps:'#ff3355',hydration:'#ff3355',sleep:'#ff3355',
+      rest:'#ff3355',stress:'#ff3355',anxiety:'#ff3355',panic_rec:'#ff3355',emo_reg:'#ff3355',
+      comp:'#f0b030',metal:'#f0b030',synth:'#f0b030',orch:'#f0b030',glitch:'#f0b030',
+      guitar:'#f0b030',strategy:'#f0b030',pipeline_stat:'#f0b030',sales_craft:'#f0b030',
+      enterprise:'#f0b030',job_hunt:'#f0b030',se_csm:'#f0b030',pro_network:'#f0b030',
+      gn_sales:'#f0b030',gn_product:'#f0b030',gn_mktg:'#f0b030',noisesharks:'#f0b030',
+      budget:'#f0b030',debt:'#f0b030',income:'#f0b030',savings:'#f0b030',
+      partner:'#ff4499',father:'#ff4499',guilt_free:'#ff4499',son:'#ff4499',
+      brother:'#ff4499',fam_stability:'#ff4499',friends:'#ff4499',biz_partners:'#ff4499',
+      self_aware:'#00ddcc',action:'#00ddcc',consistency:'#00ddcc',identity_arch:'#00ddcc',
+      parallel:'#00ddcc',burst:'#00ddcc',post_adv:'#00ddcc',anx_tools:'#00ddcc',identity:'#00ddcc',
+    };
+    // Try full stat name too
+    const fullMap = {
+      self_awareness:'#00ddcc',action_on_insight:'#00ddcc',consistency_engine:'#00ddcc',
+      identity_architecture:'#00ddcc',parallel_processing:'#00ddcc',burst_execution:'#00ddcc',
+      post_adversity_recovery:'#00ddcc',anxiety_tools:'#00ddcc',identity_stability:'#00ddcc',
+      composition:'#f0b030',prog_metal_production:'#f0b030',synth_sound_design:'#f0b030',
+      gym_consistency:'#ff3355',weight_progress:'#ff3355',supplements_stack:'#ff3355',
+    };
+    return fullMap[stat]||pillarMap[stat.split('_')[0]]||'#6a90b8';
+  }
+
+  document.getElementById('logWrap').innerHTML=grouped.length?`
+    ${grouped.map(e=>`<div class="le">
+      ${e.desc} <span class="le-date"> — ${e.date} — </span>
+      ${e.xpLabels.map(x=>{
+        const col=xpColour(x.stat);
+        const label='+'+x.xp+' XP '+(x.stat.startsWith('passive:')?x.stat.replace('passive:','').replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase()):x.stat.replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase()));
+        return`<span class="lxp" style="color:${col};cursor:pointer;text-decoration:underline dotted" onclick="logLabelClick('${label}')">${label}</span>`;
+      }).join(' &nbsp;')}
     </div>`).join('')}
+  `:'<div class="ll-empty" style="font-family:var(--mono);font-size:12px;color:var(--tx3);padding:20px">No XP events logged yet beyond founding entries.</div>';
     <div style="font-family:var(--mono);font-size:9px;color:var(--tx3);margin-top:12px;letter-spacing:1px;line-height:1.8">
       ⟩ XP ENTERS ONLY AT LEAF STATS — PARENTS ALWAYS DERIVED<br>
       ⟩ PASSIVE BOOSTS APPLIED AT LEAF LEVEL BEFORE FLOWING UPWARD<br>

@@ -1448,7 +1448,7 @@ function renderLog(){
       const xpHtml=e.xpLabels.map(x=>{
         const col=xpColour(x.stat);
         const label='+'+x.xp+' XP '+(x.stat.startsWith('passive:')?x.stat.replace('passive:','').replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase()):x.stat.replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase()));
-        return '<span class="lxp" style="color:'+col+';cursor:pointer;text-decoration:underline dotted" onclick="logLabelClick(''+label+'')">'+label+'</span>';
+        return '<span class="lxp" style="color:'+col+';cursor:pointer;text-decoration:underline dotted">'+label+'</span>';
       }).join(' &nbsp;');
       return '<div class="le">'+e.desc+' <span class="le-date"> — '+e.date+' — </span> '+xpHtml+'</div>';
     }).join('')+footer;

@@ -1005,6 +1005,26 @@ const STAT_ID_MAP = {
   'anx_tools':'anxiety_tools','identity':'identity_stability',
 };
 
+// Mapping from PASSIVES short IDs to xp-log.json full passive IDs
+const PASSIVE_ID_MAP = {
+  'prospecting':'prospecting',
+  'pipeline':'pipeline_mgmt',
+  'discipline':'discipline',
+  'systems':'systems_thinking',
+  'sales':'sales_craft',
+  'product':'product_mgmt',
+  'aesthetic':'aesthetic_intelligence',
+  'resilience':'resilience',
+  'loyalty':'loyalty_honour',
+  'creativity':'creativity',
+  'networking':'networking',
+  'precision_drive':'precision_drive',
+  'recovery_skill':'recovery_skill',
+  'contextual_courage':'contextual_courage',
+  'audience_instinct':'audience_instinct',
+  'pattern_recognition':'cross_domain_pattern',
+};
+
 // Patch computed XP totals into PILLARS and PASSIVES before rendering
 function applyXPTotals(leafTotals,passiveTotals){
   PILLARS.forEach(pillar=>{
@@ -1016,7 +1036,8 @@ function applyXPTotals(leafTotals,passiveTotals){
     });
   });
   PASSIVES.forEach(p=>{
-    if(passiveTotals[p.id]!==undefined) p.xp=passiveTotals[p.id];
+    const fullId=PASSIVE_ID_MAP[p.id]||p.id;
+    if(passiveTotals[fullId]!==undefined) p.xp=passiveTotals[fullId];
   });
 }
 

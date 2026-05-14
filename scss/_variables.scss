@@ -1,0 +1,95 @@
+// ============================================================
+// TAREK // LIFE RPG SYSTEM
+// _variables.scss — single source of truth for all values
+// Edit here, everything updates automatically
+// ============================================================
+
+
+// ── BACKGROUNDS ──────────────────────────────────────────────
+$bg:          #04060d;   // page background — deep space black
+$bg2:         #070c16;   // slightly lighter background
+$panel:       #080e1a;   // card and panel surface
+$panel2:      #0c1424;   // hovered panel surface
+$panel-dark:  #060c18;   // header background
+$panel-deep:  #050a14;   // global XP bar background
+$panel-scan:  #040810;   // scanner section background
+
+
+// ── BORDERS ──────────────────────────────────────────────────
+$b1:          #0d1f3a;   // default border — barely visible
+$b2:          #1a3a6a;   // medium border — dividers
+$b3:          #2a5a9a;   // strong border — active states
+$b-passive:   #365998;   // passive card polygon stroke
+$b-passive-bg:#0e1424;   // passive card polygon fill
+
+
+// ── ACCENT — ELECTRIC BLUE ───────────────────────────────────
+$acc:         #00aaff;   // primary accent — electric blue
+$acc2:        #0066cc;   // darker accent — pressed states
+$acc3:        rgba(0, 170, 255, 0.08);  // accent tint — hover backgrounds
+$acc-glow:    rgba(0, 170, 255, 0.25);  // accent glow — rings and halos
+
+
+// ── PILLAR COLOURS ───────────────────────────────────────────
+$health:      #ff3355;   // Health pillar — red
+$wealth:      #f0b030;   // Wealth pillar — gold/amber
+$love:        #ff4499;   // Love pillar — pink
+$mindset:     #00ddcc;   // Mindset pillar — cyan
+$gold2:       #c07800;   // darker gold — pressed/shadow
+
+
+// ── TEXT ─────────────────────────────────────────────────────
+$tx:          #c8dff0;   // primary text — light blue-white
+$tx2:         #6a90b8;   // secondary text — muted blue
+$tx3:         #2a4a6a;   // tertiary text — very muted, labels
+
+
+// ── TYPOGRAPHY ───────────────────────────────────────────────
+$font-display: 'Orbitron', monospace;       // headers, level numbers, pillar names
+$font-mono:    'Share Tech Mono', monospace; // body, XP values, labels, descriptions
+$font-body:    'Rajdhani', sans-serif;       // longer descriptive text
+
+
+// ── SPACING ──────────────────────────────────────────────────
+$space-xs:    4px;
+$space-sm:    8px;
+$space-md:    14px;
+$space-lg:    20px;
+$space-xl:    32px;
+
+
+// ── COMPONENT SIZING ─────────────────────────────────────────
+$passive-card-max:   130px;   // max width of passive card
+$passive-bar-width:  16px;    // width of the pillar colour bar strip
+$scanner-img-width:  220px;   // body scan figure width
+$header-avatar-size: 52px;    // TG avatar circle
+$global-rank-size:   70px;    // global rank box
+
+
+// ── SVG POLYGON POINTS ───────────────────────────────────────
+// These are the Illustrator-exported polygon shapes
+// ViewBox for pillar cards: 0 0 610.64 222.24
+// ViewBox for passive cards: 0 0 141.77 168.09
+
+// Pillar card shapes
+$poly-top-left:     '522.86 221.74 .5 221.74 .5 44.61 26.22 19.69 98.62 19.69 112.82 .5 610.14 .5 610.14 135.2 522.86 221.74';
+$poly-bottom-left:  '522.86 .5 .5 .5 .5 177.63 26.22 202.54 98.62 202.54 112.82 221.74 610.14 221.74 610.14 87.04 522.86 .5';
+$poly-top-right:    '87.78 221.74 610.14 221.74 610.14 44.61 584.42 19.69 512.02 19.69 497.82 .5 .5 .5 .5 135.2 87.78 221.74';
+$poly-bottom-right: '87.78 .5 610.14 .5 610.14 177.63 584.42 202.54 512.02 202.54 497.82 221.74 .5 221.74 .5 87.04 87.78 .5';
+
+// Passive skill card shape
+$poly-passive: '114.06 7.3 77.98 7.3 77.98 .5 .5 .5 .5 167.59 104.89 167.59 141.27 128.41 141.27 34.51 114.06 7.3';
+
+
+// ── ANIMATIONS ───────────────────────────────────────────────
+$anim-ring:   avp;    // scan ring pulse
+$anim-scan:   srp;    // scan line sweep
+$anim-logo:   slm;    // logo shimmer
+$anim-fade:   fi;     // fade in
+
+
+// ── Z-INDEX LAYERS ───────────────────────────────────────────
+$z-base:      1;
+$z-scanner:   2;
+$z-overlay:   10;
+$z-modal:     100;
